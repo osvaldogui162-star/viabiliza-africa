@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Viabiliza+África
 
 Sistema completo para desenvolvimento de planos estratégicos, financeiros e de negócio em África.
@@ -118,3 +119,6 @@ Este projeto é proprietário.
 
 - Equipe Viabiliza+África
 
+=======
+# viabiliza-africa
+>>>>>>> c3c0931aaf839c673faf5fcdc5fdbc324bc2e2c0
