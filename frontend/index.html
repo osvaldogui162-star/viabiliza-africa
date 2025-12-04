@@ -1197,6 +1197,9 @@
                                     <button id="btn-delete-equipment" class="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md" title="Excluir Equipamento" disabled>
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                    <button id="btn-import-excel" class="p-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors shadow-md ml-2" title="Importar Excel">
+                                        <i class="fas fa-file-excel mr-1"></i> Importar
+                                    </button>
                                 </div>
                                 <!-- Chart Toggle (only for investimento) -->
                                 <div id="chart-toggle-container" class="hidden flex items-center space-x-2 bg-white/20 px-3 py-1.5 rounded-lg border border-white/30">
@@ -1307,6 +1310,63 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+                <!-- Modal: Importar Excel -->
+                <div id="modal-import" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full transform transition-all">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">
+                                    <i class="fas fa-file-import mr-2 text-primary"></i>Importar Dados
+                                </h3>
+                                <button id="btn-close-import-modal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="text-center p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary dark:hover:border-primary transition-colors cursor-pointer" id="drop-zone">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1">Arraste o arquivo Excel aqui</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">ou clique para selecionar</p>
+                                <input type="file" id="file-input" class="hidden" accept=".xlsx, .xls">
+                            </div>
+                            <div id="file-info" class="hidden p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-between">
+                                <div class="flex items-center space-x-2 overflow-hidden">
+                                    <i class="fas fa-file-excel text-green-600"></i>
+                                    <span id="file-name" class="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">arquivo.xlsx</span>
+                                </div>
+                                <button id="btn-remove-file" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex justify-between items-center pt-2">
+                                <a href="/api/import/template" class="text-sm text-primary hover:underline flex items-center">
+                                    <i class="fas fa-download mr-1"></i> Baixar modelo
+                                </a>
+                            </div>
+                            
+                            <div id="import-preview" class="hidden space-y-2">
+                                <h4 class="font-medium text-sm text-gray-700 dark:text-gray-300">Prévia da importação:</h4>
+                                <div class="bg-gray-50 dark:bg-gray-700/50 rounded p-2 text-xs max-h-32 overflow-y-auto" id="preview-content">
+                                    <!-- Preview items -->
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-3 pt-4">
+                                <button type="button" id="btn-cancel-import" 
+                                    class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                    Cancelar
+                                </button>
+                                <button type="button" id="btn-confirm-import" disabled
+                                    class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i class="fas fa-file-import mr-2"></i>Importar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -5610,7 +5670,297 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEquipmentButtons();
     setupExportExcel();
     setupPrint();
+    setupImportModal();
 });
+
+// Setup Import Excel Modal
+function setupImportModal() {
+    const modalImport = document.getElementById('modal-import');
+    const btnImportExcel = document.getElementById('btn-import-excel');
+    const btnCloseImport = document.getElementById('btn-close-import-modal');
+    const btnCancelImport = document.getElementById('btn-cancel-import');
+    const btnConfirmImport = document.getElementById('btn-confirm-import');
+    const fileInput = document.getElementById('file-input');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInfo = document.getElementById('file-info');
+    const fileName = document.getElementById('file-name');
+    const btnRemoveFile = document.getElementById('btn-remove-file');
+    const importPreview = document.getElementById('import-preview');
+    const previewContent = document.getElementById('preview-content');
+    
+    let selectedFile = null;
+    let importData = null;
+    let currentSheetKey = null;
+    
+    // Open modal
+    if (btnImportExcel) {
+        btnImportExcel.addEventListener('click', () => {
+            // Get current sheet key from active equipment sheet
+            if (currentEquipmentSheet) {
+                currentSheetKey = currentEquipmentSheet;
+            } else {
+                // Fallback: try to get from active tab
+                const activeSheet = document.querySelector('[data-tab].active');
+                if (activeSheet) {
+                    const tabName = activeSheet.getAttribute('data-tab');
+                    // Map tab names to sheet keys (complete mapping)
+                    const sheetKeyMap = {
+                        'ativos-tangiveis-terrenos': 'ativos-tangiveis-terrenos',
+                        'ativos-tangiveis-edificios': 'ativos-tangiveis-edificios',
+                        'ativos-tangiveis-equipamento-basico': 'ativos-tangiveis-equipamento-basico',
+                        'ativos-tangiveis-equipamento-transporte': 'ativos-tangiveis-equipamento-transporte',
+                        'ativos-tangiveis-equipamento-administrativo': 'ativos-tangiveis-equipamento-administrativo',
+                        'ativos-tangiveis-equipamentos-biologicos': 'ativos-tangiveis-equipamentos-biologicos',
+                        'ativos-intangiveis-goodwill': 'ativos-intangiveis-goodwill',
+                        'ativos-intangiveis-projetos-desenvolvimento': 'ativos-intangiveis-projetos-desenvolvimento',
+                        'ativos-intangiveis-programas-computador': 'ativos-intangiveis-programas-computador',
+                        'ativos-intangiveis-propriedade-industrial': 'ativos-intangiveis-propriedade-industrial',
+                        'ativos-intangiveis-outros': 'ativos-intangiveis-outros'
+                    };
+                    currentSheetKey = sheetKeyMap[tabName] || 'imported_items';
+                } else {
+                    currentSheetKey = 'imported_items';
+                }
+            }
+            
+            modalImport.classList.remove('hidden');
+            resetImportModal();
+        });
+    }
+    
+    // Close modal
+    function closeModal() {
+        modalImport.classList.add('hidden');
+        resetImportModal();
+    }
+    
+    function resetImportModal() {
+        selectedFile = null;
+        importData = null;
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        importPreview.classList.add('hidden');
+        btnConfirmImport.disabled = true;
+    }
+    
+    if (btnCloseImport) btnCloseImport.addEventListener('click', closeModal);
+    if (btnCancelImport) btnCancelImport.addEventListener('click', closeModal);
+    
+    if (modalImport) {
+        modalImport.addEventListener('click', (e) => {
+            if (e.target === modalImport) closeModal();
+        });
+    }
+    
+    // File input change
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            handleFileSelect(e.target.files[0]);
+        });
+    }
+    
+    // Drop zone click
+    if (dropZone) {
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-primary', 'bg-primary/5');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-primary', 'bg-primary/5');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-primary', 'bg-primary/5');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+    }
+    
+    // Remove file
+    if (btnRemoveFile) {
+        btnRemoveFile.addEventListener('click', () => {
+            resetImportModal();
+        });
+    }
+    
+    // Handle file selection
+    async function handleFileSelect(file) {
+        if (!file) return;
+        
+        if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
+            alert('Por favor, selecione um arquivo Excel (.xlsx ou .xls)');
+            return;
+        }
+        
+        selectedFile = file;
+        fileName.textContent = file.name;
+        fileInfo.classList.remove('hidden');
+        btnConfirmImport.disabled = false;
+        
+        // Preview file contents
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Get current project ID
+            const projectId = projectConfig?.id;
+            if (projectId) {
+                formData.append('project_id', projectId);
+            }
+            if (currentSheetKey) {
+                formData.append('sheet_key', currentSheetKey);
+            }
+            
+            const response = await fetch('/api/import/excel', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                importData = result;
+                
+                // Show preview
+                let previewHtml = `<p class="text-xs text-gray-600 dark:text-gray-400 mb-2"><strong>${result.count}</strong> itens encontrados</p>`;
+                if (result.preview && result.preview.length > 0) {
+                    previewHtml += '<div class="space-y-1">';
+                    const currency = projectConfig?.unidadeMonetaria || 'AOA';
+                    result.preview.forEach((item, index) => {
+                        // Format values with AOA format (comma as decimal separator)
+                        const unitPrice = item.unit_price ? item.unit_price.toFixed(2).replace('.', ',') : '0,00';
+                        const total = item.total ? item.total.toFixed(2).replace('.', ',') : '0,00';
+                        previewHtml += `
+                            <div class="text-xs p-1 bg-white dark:bg-gray-600 rounded">
+                                ${index + 1}. ${item.description} - ${item.quantity}x ${unitPrice} ${currency} = ${total} ${currency}
+                            </div>
+                        `;
+                    });
+                    if (result.count > 5) {
+                        previewHtml += `<p class="text-xs text-gray-500 mt-1">... e mais ${result.count - 5} itens</p>`;
+                    }
+                    previewHtml += '</div>';
+                }
+                previewContent.innerHTML = previewHtml;
+                importPreview.classList.remove('hidden');
+            } else {
+                alert(`Erro ao processar arquivo: ${result.error || 'Erro desconhecido'}`);
+                resetImportModal();
+            }
+        } catch (error) {
+            console.error('Error previewing file:', error);
+            alert('Erro ao processar arquivo. Verifique o console para mais detalhes.');
+            resetImportModal();
+        }
+    }
+    
+    // Confirm import
+    if (btnConfirmImport) {
+        btnConfirmImport.addEventListener('click', async () => {
+            if (!selectedFile || !importData) {
+                alert('Por favor, selecione um arquivo primeiro.');
+                return;
+            }
+            
+            try {
+                btnConfirmImport.disabled = true;
+                btnConfirmImport.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Importando...';
+                
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                
+                const projectId = projectConfig?.id;
+                if (projectId) {
+                    formData.append('project_id', projectId);
+                }
+                if (currentSheetKey) {
+                    formData.append('sheet_key', currentSheetKey);
+                }
+                
+                const response = await fetch('/api/import/excel', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    const savedCount = result.saved || result.count;
+                    const sheetName = result.sheet_name || getSheetDisplayName(currentSheetKey);
+                    const currency = result.currency || projectConfig?.unidadeMonetaria || 'AOA';
+                    const totalValue = result.total_formatted || '0,00';
+                    
+                    // Show detailed success message
+                    let message = `✅ ${savedCount} itens importados com sucesso!\n\n`;
+                    message += `📁 Localização: ${sheetName}\n`;
+                    message += `💰 Moeda: ${currency}\n`;
+                    message += `💵 Valor Total: ${totalValue} ${currency}\n\n`;
+                    message += `Os dados foram salvos e estão disponíveis na aba "${sheetName}".\n`;
+                    message += `Recarregue a aba para visualizar os itens importados.`;
+                    
+                    alert(message);
+                    
+                    // Reload equipment if on equipment sheet
+                    if (currentSheetKey) {
+                        // Update currentEquipmentSheet to match
+                        if (currentEquipmentSheet !== currentSheetKey) {
+                            currentEquipmentSheet = currentSheetKey;
+                        }
+                        // Reload the spreadsheet to show imported data
+                        setTimeout(() => {
+                            loadEquipmentFromBackend(currentSheetKey).then(() => {
+                                createSpreadsheet(currentSheetKey);
+                            }).catch(err => {
+                                console.error('Error reloading equipment:', err);
+                                // Still recreate spreadsheet even if load fails
+                                createSpreadsheet(currentSheetKey);
+                            });
+                        }, 500);
+                    }
+                    
+                    closeModal();
+                } else {
+                    alert(`Erro ao importar: ${result.error || 'Erro desconhecido'}`);
+                    btnConfirmImport.disabled = false;
+                    btnConfirmImport.innerHTML = '<i class="fas fa-file-import mr-2"></i>Importar';
+                }
+            } catch (error) {
+                console.error('Error importing file:', error);
+                alert('Erro ao importar arquivo. Verifique o console para mais detalhes.');
+                btnConfirmImport.disabled = false;
+                btnConfirmImport.innerHTML = '<i class="fas fa-file-import mr-2"></i>Importar';
+            }
+        });
+    }
+}
+
+// Helper function to get display name for sheet key
+function getSheetDisplayName(sheetKey) {
+    const sheetNames = {
+        'ativos-tangiveis-terrenos': 'Terrenos e Recursos Naturais',
+        'ativos-tangiveis-edificios': 'Edifícios e Outras Construções',
+        'ativos-tangiveis-equipamento-basico': 'Equipamento Básico',
+        'ativos-tangiveis-equipamento-transporte': 'Equipamento de Transporte',
+        'ativos-tangiveis-equipamento-administrativo': 'Equipamento Administrativo',
+        'ativos-tangiveis-equipamentos-biologicos': 'Equipamentos Biológicos',
+        'ativos-intangiveis-goodwill': 'Goodwill',
+        'ativos-intangiveis-projetos-desenvolvimento': 'Projetos de Desenvolvimento',
+        'ativos-intangiveis-programas-computador': 'Programas de Computador',
+        'ativos-intangiveis-propriedade-industrial': 'Propriedade Industrial',
+        'ativos-intangiveis-outros': 'Outros Ativos Intangíveis',
+        'imported_items': 'Itens Importados'
+    };
+    return sheetNames[sheetKey] || sheetKey;
+}
 
 // Equipment Management Functions
 let selectedEquipmentRow = null;
@@ -5928,7 +6278,7 @@ async function loadEquipmentFromBackend(sheetKey) {
         
         const projectId = projectConfig.id;
         
-        const response = await fetch(`http://localhost:5000/api/equipment/${projectId}/${sheetKey}`);
+        const response = await fetch(`/api/equipment/${projectId}/${sheetKey}`);
         
         // Check again if we're still on the same sheet after fetch
         if (currentEquipmentSheet !== sheetKey) {
@@ -6046,7 +6396,7 @@ async function saveEquipmentToBackend(sheetKey) {
             };
         });
         
-        const response = await fetch(`http://localhost:5000/api/equipment/${projectId}/${sheetKey}/bulk`, {
+        const response = await fetch(`/api/equipment/${projectId}/${sheetKey}/bulk`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -6073,7 +6423,7 @@ async function saveEquipmentToBackend(sheetKey) {
 
 async function updateEquipmentInBackend(equipmentId, equipmentName, ano0, yearValues) {
     try {
-        const response = await fetch(`http://localhost:5000/api/equipment/${equipmentId}`, {
+        const response = await fetch(`/api/equipment/${equipmentId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -6096,7 +6446,7 @@ async function updateEquipmentInBackend(equipmentId, equipmentName, ano0, yearVa
 
 async function deleteEquipmentFromBackend(equipmentId) {
     try {
-        const response = await fetch(`http://localhost:5000/api/equipment/${equipmentId}`, {
+        const response = await fetch(`/api/equipment/${equipmentId}`, {
             method: 'DELETE'
         });
         

@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from backend.config.settings import config
 from backend.src import db
-from backend.src.routes import spreadsheet_routes, health_routes, frontend_routes, project_routes, equipment_routes
+from backend.src.routes import spreadsheet_routes, health_routes, frontend_routes, project_routes, equipment_routes, import_routes
 from backend.src.models.project import Project
 from backend.src.models.equipment import Equipment
 
@@ -65,6 +65,7 @@ def create_app(config_name=None):
     app.register_blueprint(frontend_routes.bp)
     app.register_blueprint(project_routes.bp)
     app.register_blueprint(equipment_routes.bp)
+    app.register_blueprint(import_routes.bp)
     
     return app
 
@@ -125,6 +126,8 @@ def main():
     print("  PUT  /api/equipment/<id>         → Update equipment")
     print("  DELETE /api/equipment/<id>        → Delete equipment")
     print("  POST /api/equipment/<project_id>/<sheet_key>/bulk → Save bulk equipment")
+    print("  POST /api/import/excel              → Import data from Excel")
+    print("  GET  /api/import/template           → Download Excel template")
     print("  GET  /api/health")
     print("=" * 60)
     

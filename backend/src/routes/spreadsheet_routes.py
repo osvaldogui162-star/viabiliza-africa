@@ -6,6 +6,7 @@ from flask import Blueprint, request, jsonify
 from ..models.storage import DataStorage
 from ..services.calculations import recalculate_formulas, calculate_rst
 from ..utils.parsers import parse_value, format_decimal
+from ..config.tax_settings import ANGOLA_TAX_SETTINGS
 
 bp = Blueprint('spreadsheet', __name__, url_prefix='/api/spreadsheet')
 storage = DataStorage()
@@ -18,12 +19,28 @@ def get_spreadsheet(sheet_name: str):
     
     if not data:
         # Return default structure
-        return jsonify({
+        default_response = {
             'title': 'Plano Financeiro',
             'subtitle': f'{sheet_name}',
             'headers': ['Parâmetro', 'Inicial', 'Ano 1', 'Ano 2', 'Ano 3', 'Ano 4', 'Ano 5'],
             'rows': []
-        })
+        }
+        
+        # Inject Angola Tax Settings if it's the 'pressupostos' sheet
+        if sheet_name == 'pressupostos':
+            taxes = ANGOLA_TAX_SETTINGS['taxes']
+            rows = [
+                ['IVA (%)', str(taxes['iva'])] + [''] * 5,
+                ['Imposto Industrial (%)', str(taxes['imposto_industrial'])] + [''] * 5,
+                ['Segurança Social Empresa (%)', str(taxes['inss_patronal'])] + [''] * 5,
+                ['Segurança Social Trabalhador (%)', str(taxes['inss_trabalhador'])] + [''] * 5,
+                ['Amortizações Imateriais (%)', str(taxes['amortizacao_imaterial'])] + [''] * 5,
+                ['Inflação (%)', '15.0'] + [''] * 5, # Default inflation estimate
+                ['Câmbio (USD/AOA)', '850.0'] + [''] * 5 # Default exchange rate estimate
+            ]
+            default_response['rows'] = rows
+            
+        return jsonify(default_response)
     
     return jsonify(data)
 

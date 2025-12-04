@@ -127,10 +127,44 @@ def create_project():
         db.session.add(project)
         db.session.commit()
         
+        # Apply Angola tax settings if currency is AOA or KZ
+        unidade_monetaria = data.get('unidadeMonetaria', '').upper()
+        if unidade_monetaria in ['AOA', 'KZ']:
+            try:
+                from backend.src.config.tax_settings import get_tax_settings
+                from backend.src.models.storage import DataStorage
+                
+                tax_settings = get_tax_settings('ANGOLA')
+                storage = DataStorage()
+                
+                # Initialize pressupostos with Angola tax rates
+                pressupostos_data = {
+                    'title': 'Plano Financeiro',
+                    'subtitle': '1. - Pressupostos do Projeto',
+                    'headers': ['Parâmetro', f'{project.primeiro_ano} (Inicial)'] + [f'{project.primeiro_ano + i}' for i in range(1, project.num_anos + 1)],
+                    'rows': [
+                        ['IVA (%)', str(tax_settings['taxes']['iva'])] + [str(tax_settings['taxes']['iva'])] * project.num_anos,
+                        ['Imposto Industrial (%)', str(tax_settings['taxes']['imposto_industrial'])] + [str(tax_settings['taxes']['imposto_industrial'])] * project.num_anos,
+                        ['Segurança Social Empresa (%)', str(tax_settings['taxes']['inss_patronal'])] + [str(tax_settings['taxes']['inss_patronal'])] * project.num_anos,
+                        ['Segurança Social Trabalhador (%)', str(tax_settings['taxes']['inss_trabalhador'])] + [str(tax_settings['taxes']['inss_trabalhador'])] * project.num_anos,
+                        ['Amortizações Imateriais (%)', str(tax_settings['taxes']['amortizacao_imaterial'])] + [str(tax_settings['taxes']['amortizacao_imaterial'])] * project.num_anos,
+                        ['Inflação (%)', '15.0'] + ['15.0'] * project.num_anos,
+                        ['Câmbio (USD/AOA)', '850.0'] + ['850.0'] * project.num_anos
+                    ]
+                }
+                
+                # Save pressupostos for this project
+                storage.save_sheet_data(f'pressupostos_project_{project.id}', pressupostos_data)
+                
+                print(f"✓ Taxas de Angola aplicadas automaticamente ao projeto {project.id}")
+            except Exception as e:
+                print(f"⚠️  Aviso: Não foi possível aplicar taxas de Angola automaticamente: {e}")
+                # Continue anyway - project is already created
+        
         return jsonify({
             'success': True,
             'project': project.to_dict(),
-            'message': f'Projeto "{project.nome}" criado com sucesso!'
+            'message': f'Projeto "{project.nome}" criado com sucesso! Taxas de Angola aplicadas automaticamente.' if unidade_monetaria in ['AOA', 'KZ'] else f'Projeto "{project.nome}" criado com sucesso!'
         }), 201
         
     except Exception as e:
