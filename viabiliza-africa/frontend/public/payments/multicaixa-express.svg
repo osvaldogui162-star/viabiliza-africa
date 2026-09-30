@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" fill="none">
+  <rect width="240" height="64" rx="12" fill="#E31E24"/>
+  <rect x="1" y="1" width="238" height="62" rx="11" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="2"/>
+  <circle cx="36" cy="32" r="18" fill="#FFFFFF" fill-opacity="0.12"/>
+  <path d="M36 20c6.6 0 12 5.4 12 12s-5.4 12-12 12-12-5.4-12-12 5.4-12 12-12z" fill="#FF7C00"/>
+  <path d="M36 24l3 5.5 6 .9-4.3 4.2 1 6-5.7-3-5.7 3 1-6-4.3-4.2 6-.9L36 24z" fill="#F00041"/>
+  <text x="64" y="28" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="0.5">MULTICAIXA</text>
+  <text x="64" y="46" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="800" fill="#FFD100" letter-spacing="1">EXPRESS</text>
+</svg>

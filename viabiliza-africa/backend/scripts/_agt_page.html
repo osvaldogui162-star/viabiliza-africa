@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="j_id_4"><link type="text/css" rel="stylesheet" href="/frontoffice/javax.faces.resource/theme.css.jsf?ln=primefaces-bootstrap" /><link rel="stylesheet" type="text/css" href="/frontoffice/javax.faces.resource/packages/bootstrap-3.3.6-dist/css/bootstrap.min.css.jsf" /><link rel="stylesheet" type="text/css" href="/frontoffice/javax.faces.resource/packages/font-awesome-4.7.0/css/font-awesome.css.jsf" /><link rel="stylesheet" type="text/css" href="/frontoffice/javax.faces.resource/components.css.jsf?ln=primefaces&amp;v=6.1" /><script type="text/javascript" src="/frontoffice/javax.faces.resource/jquery/jquery.js.jsf?ln=primefaces&amp;v=6.1"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/jquery/jquery-plugins.js.jsf?ln=primefaces&amp;v=6.1"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/core.js.jsf?ln=primefaces&amp;v=6.1"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/components.js.jsf?ln=primefaces&amp;v=6.1"></script><link rel="stylesheet" type="text/css" href="/frontoffice/javax.faces.resource/modules/template/css/style.css.jsf" /><script type="text/javascript" src="/frontoffice/javax.faces.resource/validation/validation.js.jsf?ln=primefaces&amp;v=6.1"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/validation/beanvalidation.js.jsf?ln=primefaces&amp;v=6.1"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.validateEmptyFields=true;PrimeFaces.settings.considerEmptyStringNull=false;}</script>
+        <title>SIGT - Sistema Integrado de Gestão Tributária</title>
+        <link rel="shortcut icon" type="image/png" href="/frontoffice/resources/images/fav/favicon-16x16.png" />
+    	<!--[if lt IE 9]>
+    			<h:outputScript name="packages/js/html5shiv/html5shiv-printshiv.min.js" target="body"/>
+    	<![endif]--></head><body>
+
+	
+	    <header id="header">
+
+		<div id="pop-warning" class="modal fade">
+			<div class="modal-dialog pop-warning">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Encerrar Sessão</h4>
+					</div>
+					<div class="modal-body clearfix">
+						<div class="col-md-4 text-right">
+							<i class="fa fa-exclamation-triangle"></i>
+						</div>
+						<div class="col-md-6 text-left">
+							<p>Deseja continuar na sessão do Frontoffice?</p>
+							<button type="button" class="btn btn-default continue" data-dismiss="modal" onclick="restoreSession()">Continuar</button>
+							<button type="button" class="btn desmiss" onclick="logOut()">Sair</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<header class="header">
+			<div class="banner clearfix">
+				<div class="container"><img src="/frontoffice/javax.faces.resource/images/insignia-da-republica-angola.png.jsf" alt="insignia da republica de angola" class="pull-left banner-first-element" /><img src="/frontoffice/javax.faces.resource/images/republica-angola-banner.png.jsf" alt="republica de angola" class="pull-left hidden-xs hidden-sm hidden-md" />
+
+					<div class="time-out">
+						<!-- <h:outputText value="Sessão expira em: "/> --><span id="contadorSessao"></span>
+					</div>
+
+					<div class="user-container">
+						<nav class="navbar-right-content navbar-default navbar-static-top">
+							<div class="navbar-right-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false" aria-controls="navbar1">
+									<span class="sr-only">Toggle navigation</span>
+								</button>
+							</div>
+
+								<div id="navbar1" class="navbar-collapse collapse nav-bar-right">
+									<div class="text-right">
+										<p class="header-user"><span>anonymousUser</span></p>
+									</div>
+								</div>
+						</nav>
+					</div>
+
+
+					<ul class="login-button-container">
+						<!--<h:panelGroup rendered="">-->
+						<li class="login-button"><a title="Terminar Sessão" href="j_spring_security_logout"><span>Sair</span></a></li>
+						<!--</h:panelGroup>-->
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div class="header-container-holder"><img src="/frontoffice/javax.faces.resource/images/agt-banner.png.jsf" alt="agt baner" class="image-banner" />
+
+				<div class="header-container">
+					<div class="container">
+						<div class="agt-logo">
+							<p><a href="/frontoffice/">Administração Geral do Contribuinte</a></p>
+						</div>
+						<div class="nome-do-site">
+							<h1><a href="/frontoffice/">SIGT Front Office</a></h1>
+						</div>
+
+						<!-- Navigation -->
+						<nav class="navbar main-menu navbar-default navbar-static-top">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+							<div id="navbar" class="navbar-collapse collapse">
+								<ul class="nav navbar-nav">
+									<li class="inicio"><a href="/frontoffice/"><i class="fa fa-home"></i>Início</a></li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Serviços<span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li class="dropdown-submenu">
+												<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Património<span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<!--<sec:authorize ifAnyGranted="MODELO5_ADD">
+														<li class="dropdown-submenu">
+															<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span>Cadastrar</span></a>
+															<ul class="dropdown-menu">
+                                                                <li><a href="cadastrar-fraccao"><span>Cadastrar Fracção</span></a></li>
+																<sec:authorize ifNotGranted="ROLE_MODELO5_MUNICIPALITY">
+																	<li><a tabindex="-1" href="consultar-processo-sisa"><span>Cadastrar Transmissões</span></a></li>
+
+																</sec:authorize>
+															</ul>
+														</li>
+													</sec:authorize>-->
+
+													<li class="dropdown-submenu">
+														<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span>Cadastro</span></a>
+														<ul class="dropdown-menu">
+															<li><a href="consultar-patrimonio"><span>Pesquisar</span></a></li>
+														</ul>
+													</li>
+													<li class="dropdown-submenu">
+														<a href="pre-cadastro-eletronico-de-patrimonio"><span>Pré-Cadastro Electrónico</span></a>
+													</li>
+														<li class="dropdown-submenu">
+															<a href="consulta-avaliacoes-de-predio"><span>Avaliação de Prédio</span></a>
+														</li>
+
+
+													<!--<sec:authorize ifAnyGranted="MODELO5_READ">
+														<li class="dropdown-submenu">
+															<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span>Consultar</span></a>
+															<ul class="dropdown-menu">
+																<li><a tabindex="-1" href="consultar-patrimonio"><span>Consultar Património</span></a></li>
+																<sec:authorize ifNotGranted="ROLE_MODELO5_MUNICIPALITY">
+																	<li><a tabindex="-1" href="consultar-transmissao"><span>consultar Transmissões</span></a></li>
+																</sec:authorize>
+															</ul>
+														</li>
+													</sec:authorize>-->
+														<li class="dropdown-submenu">
+															<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span>Transmissões</span></a>
+															<ul class="dropdown-menu">
+																<li><a href="consultar-transmissao"><span>Consultar</span></a></li>
+															</ul>
+														</li>
+														<li class="dropdown-submenu">
+															<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span>Gestão Contrato de Arredamento</span></a>
+
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="consultar-contrato-arrendamento">
+																		<span>Consultar Contrato de Arrendamento</span>
+																	</a>
+																</li>
+															</ul>
+														</li>
+														<li><a tabindex="-1" href="relatorio-patrimonio"><span>Relatórios</span></a></li>
+												</ul>
+											</li>
+
+											<li class="dropdown-submenu">
+												<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Gestão do Utilizador<span class="caret"></span></a>
+
+												<ul class="dropdown-menu">
+													<li>
+														<a href="alterar_senha">
+															<span>Alterar Senha</span>
+														</a>
+													</li>
+												</ul>
+											</li>
+
+										</ul>
+									</li>
+
+									<li><a href="https://portaldocontribuinte.minfin.gov.ao/" target="_blank">Portal do Contribuinte</a></li>
+
+								</ul>
+							</div><!--/.nav-collapse -->
+						</nav>
+					</div>
+				</div>
+			</div>
+
+			<div id="popover_content_wrapper" class="popover" role="tooltip">
+				<div class="arrow">
+				</div>
+				<h3 class="popover-title">sdfsd</h3>
+				<div class="popover-content">
+				</div>
+			</div>
+		</header>
+	    </header>
+
+		<section class="container" id="content">
+			<div class="row-md">
+		<div class="col-md-3 column">
+
+			<ul class="nav nav-pills nav-stacked">
+				<li class="menu-titulo"><a href="#"><span>Menu de Serviços</span></a></li>
+			</ul>
+
+
+		</div><div id="modalForm" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container custom-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="modalForm_title" class="ui-dialog-title">Nova Declaração de Imposto Industrial</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content">
+			<p>Caro Contribuinte, seleccione abaixo o tipo de declaração de Imposto Industrial de acordo com o seu grupo de tributação.</p><form id="j_id_1o" name="j_id_1o" method="post" action="/frontoffice/consultar-nif-do-contribuinte" enctype="application/x-www-form-urlencoded">
+				<!--<div class="form-group col-sm-10 float-none center-block">-->
+				<!--<p:commandButton value="Modelo 1 - Grupo A e B com Contabilidade Organizada"-->
+				<!--action=""-->
+				<!--process = "@this"-->
+				<!--styleClass="submit-button margin-bottom-fitteen col-sm-12 font-size-twelve dialogue-buttons-padding">-->
+				<!--</p:commandButton>-->
+				<!--</div>-->
+				<!--<div class="form-group col-sm-10 float-none center-block">-->
+				<!--<p:commandButton value="Modelo 1 - Grupo A (Sector Financeiro)"-->
+				<!--action=""-->
+				<!--process = "@this"-->
+				<!--styleClass="submit-button margin-bottom-fitteen col-sm-12 font-size-twelve dialogue-buttons-padding">-->
+				<!--</p:commandButton>-->
+				<!--</div>-->
+				<div class="form-group col-sm-10 float-none center-block"><button id="j_id_1o:j_id_1q" name="j_id_1o:j_id_1q" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only submit-button margin-bottom-fitteen col-sm-12 font-size-twelve dialogue-buttons-padding" onclick="PrimeFaces.ab({s:&quot;j_id_1o:j_id_1q&quot;,p:&quot;j_id_1o&quot;,u:&quot;j_id_1o:j_id_1q&quot;});return false;" type="submit"><span class="ui-button-text ui-c">Modelo 2 - Grupo B sem Contabilidade Organizada</span></button><script id="j_id_1o:j_id_1q_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_id_1o_j_id_1q",{id:"j_id_1o:j_id_1q"});</script>
+				</div><input type="hidden" name="j_id_1o_SUBMIT" value="1" /><input type="hidden" name="javax.faces.ViewState" id="j_id__v_0:javax.faces.ViewState:1" value="6AWv9owCDgF+GRwGRA7fht3h5UEWxVx6TGj/okFxBZdiDx6Z" autocomplete="off" /></form></div></div><script id="modalForm_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogFormOptions",{id:"modalForm",draggable:false,resizable:false,modal:true,width:"37%",appendTo:"@(body)"});});</script>
+
+				<main class="main-content">
+					<div class="col-md-9">
+            <div class="panel panel-default clearfix">
+                <h1>Consultar NIF </h1>
+                <div class="panel panel-default form-horizontal panel-bckground-color grey"><form id="j_id_1u" name="j_id_1u" method="post" action="/frontoffice/consultar-nif-do-contribuinte" enctype="application/x-www-form-urlencoded">
+                        <div class="form-group">
+                            <div class="row"><label class="col-sm-4 control-label bold" for="j_id_1u:txtNIFNumber"> NIF : </label>
+                                <div class="col-sm-4"><input id="j_id_1u:txtNIFNumber" name="j_id_1u:txtNIFNumber" type="text" value="" class="form-control" />
+                                </div>
+                                <div class="col-sm-2 margin-top-5"><button id="j_id_1u:j_id_21" name="j_id_1u:j_id_21" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="PrimeFaces.ab({s:&quot;j_id_1u:j_id_21&quot;,p:&quot;j_id_1u&quot;,u:&quot;showpanelNIF&quot;});return false;" type="submit"><span class="ui-button-text ui-c">Pesquisar</span></button><script id="j_id_1u:j_id_21_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_id_1u_j_id_21",{id:"j_id_1u:j_id_21"});</script>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-9"><span id="j_id_1u:j_id_23" class="ui-growl-pl" data-widget="widget_j_id_1u_j_id_23" data-detail="data-detail" data-severity="all,error" data-redisplay="true"></span><script id="j_id_1u:j_id_23_s" type="text/javascript">$(function(){PrimeFaces.cw('Growl','widget_j_id_1u_j_id_23',{id:'j_id_1u:j_id_23',sticky:false,life:6000,escape:true,msgs:[]});});</script>
+                                </div>
+                            </div>
+                        </div><input type="hidden" name="j_id_1u_SUBMIT" value="1" /><input type="hidden" name="javax.faces.ViewState" id="j_id__v_0:javax.faces.ViewState:2" value="6AWv9owCDgF+GRwGRA7fht3h5UEWxVx6TGj/okFxBZdiDx6Z" autocomplete="off" /></form>
+                </div><div id="showpanelNIF" class="ui-panel ui-widget ui-widget-content ui-corner-all no-border" data-widget="widget_showpanelNIF"><div id="showpanelNIF_content" class="ui-panel-content ui-widget-content"></div></div><script id="showpanelNIF_s" type="text/javascript">PrimeFaces.cw("Panel","widget_showpanelNIF",{id:"showpanelNIF"});</script>
+            </div>
+					</div>
+				</main>
+			</div>
+		</section>
+
+		<footer class="footer">
+			<div class="footer-bottom clearfix">
+				<div class="footer-separator-container"><img src="/frontoffice/javax.faces.resource/images/footer-separator.png.jsf" alt="footer separator" class="footer-separator" />
+				</div>
+
+				<div class="footer-bottom-left"><img src="/frontoffice/javax.faces.resource/images/ministerio-financas-dark.png.jsf" alt="Ministerio das finanças" class="pull-right" />
+				</div>
+				<div class="footer-bottom-right"><img src="/frontoffice/javax.faces.resource/images/agt-logo.png.jsf" alt="agt" class="pull-left" />
+				</div>
+
+<!--				<div style="float: left; z-index: 5000; position: absolute; text-align: center; margin-left: 10%; padding: 24px 20px; color: #636363">-->
+<!--					<p:outputLabel value="v"/>-->
+<!--				</div>-->
+			</div>
+		</footer><div id="j_id_3i"></div><script id="j_id_3i_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_j_id_3i",{id:"j_id_3i",start:function(){PF('statusDialog').show()},complete:function(){PF('statusDialog').hide()}});});</script><div id="dialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-content ui-widget-content"><img src="/frontoffice/javax.faces.resource/images/loading.gif.jsf" /></div></div><script id="dialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","statusDialog",{id:"dialog",draggable:false,resizable:false,modal:true});});</script>
+
+
+		<!-- Versao do primefaces nao e comaptivel com a versao mais recente do jquery --><script type="text/javascript" src="/frontoffice/javax.faces.resource/jsf_components/js/session_time_out.js.jsf"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/packages/jquery-ui/1.12.1-jquery-ui.js.jsf"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/packages/bootstrap-3.3.6-dist/js/bootstrap.min.js.jsf"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/modules/template/js/custom.js.jsf"></script><script type="text/javascript" src="/frontoffice/javax.faces.resource/jsf_components/js/primefaces-locale.js.jsf"></script></body>
+</html>

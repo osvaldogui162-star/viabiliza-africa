@@ -1,0 +1,1 @@
+"""Domínio — catálogos de negócio."""

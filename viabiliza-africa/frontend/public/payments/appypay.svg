@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <rect width="200" height="48" rx="10" fill="#0B1F3A"/>
+  <text x="20" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Appy</text>
+  <text x="68" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#00C896">Pay</text>
+  <circle cx="170" cy="24" r="10" fill="#00C896"/>
+  <path d="M166 24 L169 27 L175 21" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

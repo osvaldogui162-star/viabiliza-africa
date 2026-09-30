@@ -1,0 +1,30 @@
+from enum import Enum
+
+
+class AccessAction(str, Enum):
+    """Ações registadas no log de acessos e auditoria."""
+
+    LOGIN_SUCCESS = "login_success"
+    LOGIN_FAILED = "login_failed"
+    LOGOUT = "logout"
+    USER_CREATED = "user_created"
+    USER_UPDATED = "user_updated"
+    USER_DEACTIVATED = "user_deactivated"
+    USER_APPROVED = "user_approved"
+    USER_ACCESS_EXTENDED = "user_access_extended"
+    ROLE_CHANGED = "role_changed"
+    PASSWORD_RESET_REQUESTED = "password_reset_requested"
+    PASSWORD_RESET_COMPLETED = "password_reset_completed"
+    SIGNUP_OTP_REQUESTED = "signup_otp_requested"
+    SIGNUP_COMPLETED = "signup_completed"
+    GOOGLE_LOGIN_SUCCESS = "google_login_success"
+    GOOGLE_SIGNUP_COMPLETED = "google_signup_completed"
+    TOKEN_REFRESHED = "token_refreshed"
+    PROJECT_CREATED = "project_created"
+    PROJECT_UPDATED = "project_updated"
+    PROJECT_DELETED = "project_deleted"
+    PROJECT_SHARED = "project_shared"
+    PROJECT_SHARE_REMOVED = "project_share_removed"
+    CONFIG_UPDATED = "config_updated"
+    PLAN_UPDATED = "plan_updated"
+    SUBSCRIPTION_ASSIGNED = "subscription_assigned"

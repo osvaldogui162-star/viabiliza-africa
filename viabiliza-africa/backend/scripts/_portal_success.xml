@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><partial-response id="j_id__v_0"><changes><update id="j_id_2x:j_id_36"><![CDATA[<span id="j_id_2x:j_id_36" class="ui-growl-pl" data-widget="widget_j_id_2x_j_id_36" data-detail="data-detail" data-severity="all,error" data-redisplay="true"></span><script id="j_id_2x:j_id_36_s" type="text/javascript">$(function(){PrimeFaces.cw('Growl','widget_j_id_2x_j_id_36',{id:'j_id_2x:j_id_36',sticky:false,life:6000,escape:true,msgs:[]});});</script>]]></update><update id="showpanelNIF"><![CDATA[<div id="showpanelNIF" class="ui-panel ui-widget ui-widget-content ui-corner-all no-border" data-widget="widget_showpanelNIF"><div id="showpanelNIF_content" class="ui-panel-content ui-widget-content"><div id="panelNIF" class="ui-panel ui-widget ui-widget-content ui-corner-all panel panel-default info-panel                      panel-bckground-color grey form-horizontal col-sm-offset-0 col-sm-8" style="width: 100%;" data-widget="widget_panelNIF"><div id="panelNIF_content" class="ui-panel-content ui-widget-content">
+
+
+
+                        <div class="">
+                            <div class="panel-default-header row  clearfix">
+                                <div class="col-sm-6 text-center border-right">
+                                    <img src="../../resources/images/agt-logo-medium-size.png" alt="logo agt" />
+                                </div>
+
+                                <div class="col-sm-6 text-center">
+                                    <h3>Resultado da Consulta</h3>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67"> NIF: </label>
+                                <div class="col-sm-6"><label id="taxPayerNidId" class="control-label">5410003284</label><div id="j_id_3g" class="ui-tooltip ui-widget ui-tooltip-top"><div class="ui-tooltip-arrow"></div><div class="ui-tooltip-text ui-shadow ui-corner-all"></div></div><script id="j_id_3g_s" type="text/javascript">$(function(){PrimeFaces.cw("Tooltip","widget_j_id_3g",{id:"j_id_3g",showEffect:"fade",hideEffect:"fade",target:"taxPayerNidId",position:"top"});});</script>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67"> Nome: </label>
+                                <div class="col-sm-6"><label class="control-label text-left">SONANGOL (SOC. NAC. COMBUSTIVEIS DE ANGOLA) - EP</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67"> Tipo: </label>
+                                <div class="col-sm-6"><label class="control-label">COLECTIVO - Empresa</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67"> Estado: </label>
+                                <div class="col-sm-6"><label class="control-label">Activo</label>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67"> Inadimplente: </label>
+                                <div class="col-sm-6"><label class="control-label">Sim</label>
+                                </div>
+                            </div>
+
+
+<!--                            <h:panelGroup id="nif-representante-fiscal">-->
+<!--                                <h:panelGroup rendered="false">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <h:outputLabel styleClass="col-sm-6 control-label bold text-left padding-left-67 no-padding-right"> NIF do Representante Fiscal: </h:outputLabel>-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            <h:outputLabel styleClass="control-label" value="" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                                </h:panelGroup>-->
+<!--                            </h:panelGroup>-->
+
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67 no-padding-right"> Regime de IVA: </label>
+                                <div class="col-sm-6"><label class="control-label">Regime Geral (Factura IVA)</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-6 control-label bold text-left padding-left-67 no-padding-right"> <!--Indicador de Não Residente:--></label>
+                                <div class="col-sm-6"><label class="control-label">Residente Fiscal</label>
+                                </div>
+                            </div>
+
+                        </div></div></div><script id="panelNIF_s" type="text/javascript">PrimeFaces.cw("Panel","widget_panelNIF",{id:"panelNIF"});</script></div></div><script id="showpanelNIF_s" type="text/javascript">PrimeFaces.cw("Panel","widget_showpanelNIF",{id:"showpanelNIF"});</script>]]></update><update id="j_id__v_0:javax.faces.ViewState:1"><![CDATA[mBPDnhLA+BdbpvBrbxG485AijbDvkl+GcL6Gkd7EmBAhWBNo]]></update></changes></partial-response>

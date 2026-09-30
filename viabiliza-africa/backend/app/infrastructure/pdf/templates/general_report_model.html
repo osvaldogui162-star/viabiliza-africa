@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Modelo – ViabilizA+ África</title>
+    <style>
+        /* ============================================================
+           ESTILOS INSTITUCIONAIS – ALTO IMPACTO
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: #e8ecf2;
+            padding: 30px 20px;
+            color: #1a2a3a;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* ===== CABEÇALHO INSTITUCIONAL ===== */
+        .header {
+            background: linear-gradient(135deg, #0a1a2e 0%, #1a3a5c 50%, #2a4a7a 100%);
+            color: white;
+            padding: 32px 40px;
+            border-bottom: 5px solid #c6a43f;
+            position: relative;
+        }
+
+        .header .logo-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header .brand {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header .brand span {
+            color: #c6a43f;
+        }
+
+        .header .document-id {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .header .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 13px;
+        }
+
+        .header .meta-grid .item {
+            opacity: 0.85;
+        }
+
+        .header .meta-grid .item strong {
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        /* ===== NAVEGAÇÃO POR ABAS (SIMULANDO EXCEL) ===== */
+        .sheet-tabs {
+            display: flex;
+            background: #f1f5f9;
+            border-bottom: 2px solid #d1d9e6;
+            padding: 0 20px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            gap: 2px;
+        }
+
+        .sheet-tab {
+            padding: 12px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a627a;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .sheet-tab:hover {
+            color: #0a1a2e;
+            background: rgba(26, 58, 92, 0.05);
+        }
+
+        .sheet-tab.active {
+            color: #0a1a2e;
+            border-bottom-color: #c6a43f;
+            background: white;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .sheet-tab .badge {
+            display: inline-block;
+            background: #c6a43f;
+            color: white;
+            font-size: 10px;
+            padding: 1px 10px;
+            border-radius: 20px;
+            margin-left: 6px;
+            font-weight: 700;
+        }
+
+        /* ===== CONTEÚDO DAS ABAS ===== */
+        .sheet-content {
+            padding: 30px 40px;
+            display: none;
+        }
+
+        .sheet-content.active {
+            display: block;
+        }
+
+        /* ===== TIPOGRAFIA ===== */
+        h1.section-title {
+            font-size: 24px;
+            color: #0a1a2e;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #c6a43f;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1.section-title .num {
+            background: #c6a43f;
+            color: white;
+            font-size: 16px;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+
+        h2.subsection {
+            font-size: 18px;
+            color: #1a3a5c;
+            margin: 24px 0 12px;
+            padding-left: 12px;
+            border-left: 4px solid #c6a43f;
+        }
+
+        h3.subsubsection {
+            font-size: 15px;
+            color: #2c4a6a;
+            margin: 18px 0 10px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #2d3748;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .text-muted {
+            color: #6b7a8a;
+            font-size: 13px;
+        }
+
+        /* ===== TABELAS ===== */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 16px 0 24px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 600px;
+        }
+
+        thead th {
+            background: #1a3a5c;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #eef2f7;
+            vertical-align: top;
+        }
+
+        tbody tr:hover td {
+            background: #f8fafc;
+        }
+
+        tbody tr:nth-child(even) td {
+            background: #fafbfd;
+        }
+
+        tbody tr:nth-child(even):hover td {
+            background: #f1f5f9;
+        }
+
+        .table-highlight tbody td {
+            background: #f0f7ff !important;
+        }
+
+        .table-total td {
+            font-weight: 700;
+            background: #e8edf4 !important;
+            border-top: 2px solid #c6a43f;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-currency {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+        .text-positive {
+            color: #15803d;
+        }
+        .text-negative {
+            color: #b91c1c;
+        }
+
+        /* ===== CARDS DE DESTAQUE ===== */
+        .highlight-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8eef8 100%);
+            border-left: 5px solid #c6a43f;
+            padding: 18px 24px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .highlight-card .label {
+            font-weight: 700;
+            color: #1a3a5c;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .highlight-grid .stat {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .highlight-grid .stat .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a1a2e;
+        }
+
+        .highlight-grid .stat .value .currency {
+            font-size: 16px;
+            color: #6b7a8a;
+        }
+
+        .highlight-grid .stat .desc {
+            font-size: 13px;
+            color: #6b7a8a;
+            margin-top: 4px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #f1f5f9;
+            padding: 16px 40px;
+            border-top: 2px solid #d1d9e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+            color: #4a627a;
+        }
+
+        .footer .confidential {
+            color: #b91c1c;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .sheet-content { padding: 20px; }
+            .sheet-tabs { padding: 0 10px; }
+            .sheet-tab { padding: 10px 14px; font-size: 12px; }
+            .highlight-grid { grid-template-columns: 1fr 1fr; }
+            .header h1 { font-size: 20px; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border-radius: 0; }
+            .sheet-tabs { display: none; }
+            .sheet-content { display: block !important; page-break-after: always; }
+            .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        /* ===== STATUS INDICATOR ===== */
+        .status-badge {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .status-badge.complete { background: #dcfce7; color: #166534; }
+        .status-badge.partial { background: #fef3c7; color: #92400e; }
+        .status-badge.pending { background: #fef2f2; color: #991b1b; }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 4px 0;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c6a43f, #f5d76e);
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+
+    <!-- ============================================================
+    CABEÇALHO INSTITUCIONAL
+    ============================================================ -->
+    <div class="header">
+        <div class="logo-bar">
+            <div class="brand">VIABILIZA<span>+</span> ÁFRICA</div>
+            <div class="document-id">📄 DOC-2026-001 · v1.0</div>
+        </div>
+        <h1>ESTUDO DE VIABILIDADE ECONÓMICO-FINANCEIRA</h1>
+        <h2>Plano de Negócios · Modelo Internacional · BFA · BDA</h2>
+        <div class="meta-grid">
+            <div class="item"><strong>Projeto:</strong> <span id="projectName">[Nome do Projeto]</span></div>
+            <div class="item"><strong>Promotor:</strong> <span id="promoterName">[Nome da Empresa]</span></div>
+            <div class="item"><strong>Setor:</strong> <span id="sectorName">[Setor de Atividade]</span></div>
+            <div class="item"><strong>Data:</strong> <span id="reportDate">Julho 2026</span></div>
+            <div class="item"><strong>Moeda:</strong> <span id="reportCurrency">AOA / USD</span></div>
+            <div class="item"><strong>Versão:</strong> 1.0</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    ABAS (SHEETS) – SIMULANDO EXCEL
+    ============================================================ -->
+    <div class="sheet-tabs" id="sheetTabs">
+        <button class="sheet-tab active" data-sheet="sheet0">📋 ÍNDICE</button>
+        <button class="sheet-tab" data-sheet="sheet1">I. SUMÁRIO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet2">II. NEGÓCIO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet3">III. MERCADO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet4">IV. CONCORRÊNCIA <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet5">V. SWOT <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet6">VI. MARKETING <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet7">VII. OPERACIONAL <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet8">VIII. ORGANIZAÇÃO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet9">IX. RISCOS <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet10">X. FINANCEIRO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet11">XI. VIABILIDADE <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet12">XII. SENSIBILIDADE <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet13">XIII. FINANCIAMENTO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet14">XIV. KPIs <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet15">XV. CRONOGRAMA <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet16">XVI. LEGAL <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet17">XVII. TI <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet18">XVIII. ESG <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet19">XIX. SAÍDA <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet20">XX. CONTROLE <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet21">XXI. CONCLUSÃO <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet22">XXII. ANEXOS <span class="badge">OK</span></button>
+        <button class="sheet-tab" data-sheet="sheet23">XXIII. GLOSSÁRIO <span class="badge">OK</span></button>
+    </div>
+
+    <!-- ============================================================
+    SHEET 0 – ÍNDICE
+    ============================================================ -->
+    <div class="sheet-content active" id="sheet0">
+        <h1 class="section-title"><span class="num">📋</span> ÍNDICE GERAL</h1>
+        <p style="margin-bottom: 20px; font-size: 15px;">
+            <strong>Relatório Modelo – ViabilizA+ África</strong><br>
+            Este documento apresenta a estrutura completa de um Estudo de Viabilidade Económico-Financeira,
+            com todas as secções do Guião Completo, incluindo tabelas, indicadores e métricas.
+        </p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th style="width:8%;">Secção</th><th style="width:35%;">Título</th><th style="width:15%;">Status</th><th style="width:42%;">Subsecções</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>I</strong></td><td>Sumário Executivo</td><td><span class="status-badge complete">✅ Completo</span></td><td>1.1 a 1.8</td></tr>
+                    <tr><td><strong>II</strong></td><td>Descrição do Negócio</td><td><span class="status-badge complete">✅ Completo</span></td><td>2.1 a 2.8</td></tr>
+                    <tr><td><strong>III</strong></td><td>Análise de Mercado</td><td><span class="status-badge complete">✅ Completo</span></td><td>3.1 a 3.9</td></tr>
+                    <tr><td><strong>IV</strong></td><td>Análise da Concorrência</td><td><span class="status-badge complete">✅ Completo</span></td><td>4.1 a 4.8</td></tr>
+                    <tr><td><strong>V</strong></td><td>Análise SWOT Organizacional</td><td><span class="status-badge complete">✅ Completo</span></td><td>5.1 a 5.6</td></tr>
+                    <tr><td><strong>VI</strong></td><td>Estratégia de Marketing e Vendas</td><td><span class="status-badge complete">✅ Completo</span></td><td>6.1 a 6.8</td></tr>
+                    <tr><td><strong>VII</strong></td><td>Plano Operacional</td><td><span class="status-badge complete">✅ Completo</span></td><td>7.1 a 7.10</td></tr>
+                    <tr><td><strong>VIII</strong></td><td>Estrutura Organizacional e Gestão</td><td><span class="status-badge complete">✅ Completo</span></td><td>8.1 a 8.9</td></tr>
+                    <tr><td><strong>IX</strong></td><td>Análise de Riscos</td><td><span class="status-badge complete">✅ Completo</span></td><td>9.1 a 9.7</td></tr>
+                    <tr><td><strong>X</strong></td><td>Projeções Financeiras</td><td><span class="status-badge complete">✅ Completo</span></td><td>10.1 a 10.5</td></tr>
+                    <tr><td><strong>XI</strong></td><td>Análise de Viabilidade Económica</td><td><span class="status-badge complete">✅ Completo</span></td><td>11.1 a 11.10</td></tr>
+                    <tr><td><strong>XII</strong></td><td>Análise de Sensibilidade e Cenários</td><td><span class="status-badge complete">✅ Completo</span></td><td>12.1 a 12.6</td></tr>
+                    <tr><td><strong>XIII</strong></td><td>Necessidades de Financiamento</td><td><span class="status-badge complete">✅ Completo</span></td><td>13.1 a 13.7</td></tr>
+                    <tr><td><strong>XIV</strong></td><td>Indicadores de Desempenho (KPIs)</td><td><span class="status-badge complete">✅ Completo</span></td><td>14.1 a 14.8</td></tr>
+                    <tr><td><strong>XV</strong></td><td>Cronograma de Implementação</td><td><span class="status-badge complete">✅ Completo</span></td><td>15.1 a 15.8</td></tr>
+                    <tr><td><strong>XVI</strong></td><td>Aspectos Legais e Regulamentares</td><td><span class="status-badge complete">✅ Completo</span></td><td>16.1 a 16.9</td></tr>
+                    <tr><td><strong>XVII</strong></td><td>Tecnologia da Informação</td><td><span class="status-badge complete">✅ Completo</span></td><td>17.1 a 17.8</td></tr>
+                    <tr><td><strong>XVIII</strong></td><td>Sustentabilidade e ESG</td><td><span class="status-badge complete">✅ Completo</span></td><td>18.1 a 18.8</td></tr>
+                    <tr><td><strong>XIX</strong></td><td>Plano de Saída (Exit Strategy)</td><td><span class="status-badge complete">✅ Completo</span></td><td>19.1 a 19.8</td></tr>
+                    <tr><td><strong>XX</strong></td><td>Controle e Monitoramento</td><td><span class="status-badge complete">✅ Completo</span></td><td>20.1 a 20.8</td></tr>
+                    <tr><td><strong>XXI</strong></td><td>Conclusões e Recomendações</td><td><span class="status-badge complete">✅ Completo</span></td><td>21.1 a 21.8</td></tr>
+                    <tr><td><strong>XXII</strong></td><td>Anexos</td><td><span class="status-badge partial">⏳ Parcial</span></td><td>22.1 a 22.12</td></tr>
+                    <tr><td><strong>XXIII</strong></td><td>Glossário</td><td><span class="status-badge partial">⏳ Parcial</span></td><td>23.1 a 23.4</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="highlight-card">
+            <p><strong>📌 Lenda de Status:</strong></p>
+            <p>
+                <span class="status-badge complete">✅ Completo</span> = Secção totalmente preenchida com dados do projeto<br>
+                <span class="status-badge partial">⏳ Parcial</span> = Secção com dados parciais (aguardando inputs do utilizador)<br>
+                <span class="status-badge pending">⏳ Pendente</span> = Secção a ser preenchida
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 1 – SUMÁRIO EXECUTIVO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet1">
+        <h1 class="section-title"><span class="num">I</span> SUMÁRIO EXECUTIVO</h1>
+
+        <h2 class="subsection">1.1 Visão Geral do Projeto</h2>
+        <p><strong>[Nome do Projeto]</strong> é uma iniciativa do setor <strong>[Setor]</strong> promovida por <strong>[Nome da Empresa]</strong>, com o objetivo de <strong>[breve descrição]</strong>. O projeto prevê um investimento total de <strong>[Valor]</strong> e tem um horizonte de projeção de <strong>[X] anos</strong>.</p>
+
+        <h2 class="subsection">1.2 Missão, Visão e Valores</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value" style="font-size:14px; font-weight:700;">Missão</div><div class="desc">[Missão da empresa]</div></div>
+            <div class="stat"><div class="value" style="font-size:14px; font-weight:700;">Visão</div><div class="desc">[Visão da empresa]</div></div>
+            <div class="stat"><div class="value" style="font-size:14px; font-weight:700;">Valores</div><div class="desc">[Valores da empresa]</div></div>
+        </div>
+
+        <h2 class="subsection">1.3 Principais Conclusões da Viabilidade</h2>
+        <div class="highlight-card">
+            <p>O projeto apresenta-se <strong>viável</strong> com um VPL de <strong class="text-positive">[VPL]</strong>, TIR de <strong>[TIR]%</strong> e Payback de <strong>[Payback] anos</strong>.</p>
+        </div>
+
+        <h2 class="subsection">1.4 Indicadores Financeiros Chave</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[VPL] <span class="currency">Kz</span></div><div class="desc">Valor Presente Líquido</div></div>
+            <div class="stat"><div class="value">[TIR]%</div><div class="desc">Taxa Interna de Retorno</div></div>
+            <div class="stat"><div class="value">[Payback] <span class="currency">anos</span></div><div class="desc">Período de Retorno</div></div>
+            <div class="stat"><div class="value">[ROI]%</div><div class="desc">Retorno sobre Investimento</div></div>
+        </div>
+
+        <h2 class="subsection">1.5 Necessidades de Investimento</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Rubrica</th><th class="text-right">Valor (Kz)</th><th class="text-right">%</th></tr></thead>
+                <tbody>
+                    <tr><td>Ativos Fixos (CAPEX)</td><td class="text-right text-currency">[CAPEX]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>Capital de Giro</td><td class="text-right text-currency">[CapitalGiro]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>Investimentos Pré-Operacionais</td><td class="text-right text-currency">[PreOperacional]</td><td class="text-right">[%]%</td></tr>
+                    <tr class="table-total"><td><strong>Total do Investimento</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td><td class="text-right"><strong>100%</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">1.6 Cronograma de Implementação</h2>
+        <p>O projeto será implementado em <strong>[X] fases</strong>, com conclusão prevista para <strong>[Data]</strong>.</p>
+        <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
+        <p class="text-muted">Progresso estimado: 40% (Fase 1 concluída)</p>
+
+        <h2 class="subsection">1.7 Equipe Executiva</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Nome</th><th>Cargo</th><th>Experiência</th></tr></thead>
+                <tbody>
+                    <tr><td>[Nome 1]</td><td>CEO</td><td>[X] anos no setor</td></tr>
+                    <tr><td>[Nome 2]</td><td>CFO</td><td>[X] anos em finanças</td></tr>
+                    <tr><td>[Nome 3]</td><td>COO</td><td>[X] anos em operações</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">1.8 Fatores Críticos de Sucesso</h2>
+        <ul>
+            <li><strong>Fator 1:</strong> [Descrição]</li>
+            <li><strong>Fator 2:</strong> [Descrição]</li>
+            <li><strong>Fator 3:</strong> [Descrição]</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================
+    SHEET 2 – DESCRIÇÃO DO NEGÓCIO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet2">
+        <h1 class="section-title"><span class="num">II</span> DESCRIÇÃO DO NEGÓCIO</h1>
+
+        <h2 class="subsection">2.1 Histórico e Contexto</h2>
+        <p>[Histórico da empresa, desde a sua fundação até ao momento atual]</p>
+
+        <h2 class="subsection">2.2 Natureza do Negócio</h2>
+        <p>[Descrição da natureza do negócio e do setor de atuação]</p>
+
+        <h2 class="subsection">2.3 Produtos e/ou Serviços</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Produto/Serviço</th><th>Descrição</th><th>Preço Unitário (Kz)</th><th>Margem (%)</th></tr></thead>
+                <tbody>
+                    <tr><td>[Produto 1]</td><td>[Descrição]</td><td class="text-right text-currency">[Preço]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>[Produto 2]</td><td>[Descrição]</td><td class="text-right text-currency">[Preço]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>[Produto 3]</td><td>[Descrição]</td><td class="text-right text-currency">[Preço]</td><td class="text-right">[%]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">2.4 Modelo de Negócio</h2>
+        <p>[Descrição do modelo de negócio: B2B, B2C, B2G, etc.]</p>
+
+        <h2 class="subsection">2.5 Proposta de Valor Única</h2>
+        <p>[O que diferencia o negócio da concorrência]</p>
+
+        <h2 class="subsection">2.6 Cadeia de Valor</h2>
+        <div class="highlight-card">
+            <p><strong>Fluxo da Cadeia de Valor:</strong></p>
+            <p style="font-size:14px; background: white; padding: 12px; border-radius: 6px; text-align: center;">
+                Fornecedores → Produção → Logística → Marketing → Vendas → Pós-Venda
+            </p>
+        </div>
+
+        <h2 class="subsection">2.7 Localização e Infraestrutura</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Detalhe</th></tr></thead>
+                <tbody>
+                    <tr><td>Província</td><td>[Província]</td></tr>
+                    <tr><td>Município</td><td>[Município]</td></tr>
+                    <tr><td>Área Total</td><td>[X] ha / m²</td></tr>
+                    <tr><td>Infraestrutura</td><td>Água: [Sim/Não] · Energia: [Sim/Não] · Estradas: [Sim/Não]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">2.8 Aspectos Legais e Regulamentares</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Documento</th><th>Número</th><th>Validade</th></tr></thead>
+                <tbody>
+                    <tr><td>Certidão Comercial</td><td>[Nº]</td><td>[Data]</td></tr>
+                    <tr><td>Licença Ambiental</td><td>[Nº]</td><td>[Data]</td></tr>
+                    <tr><td>Registo Fiscal</td><td>[NIF]</td><td>Válido</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 3 – ANÁLISE DE MERCADO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet3">
+        <h1 class="section-title"><span class="num">III</span> ANÁLISE DE MERCADO</h1>
+
+        <h2 class="subsection">3.1 Definição do Mercado-Alvo</h2>
+        <p>[Descrição do mercado-alvo]</p>
+
+        <h2 class="subsection">3.2 Dimensionamento do Mercado (TAM, SAM, SOM)</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[TAM] <span class="currency">Kz</span></div><div class="desc">Mercado Total Endereçável</div></div>
+            <div class="stat"><div class="value">[SAM] <span class="currency">Kz</span></div><div class="desc">Mercado Endereçável Servível</div></div>
+            <div class="stat"><div class="value">[SOM] <span class="currency">Kz</span></div><div class="desc">Mercado Capturável</div></div>
+        </div>
+
+        <h2 class="subsection">3.3 Segmentação de Mercado</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Segmento</th><th>Características</th><th>% do Mercado</th></tr></thead>
+                <tbody>
+                    <tr><td>[Segmento 1]</td><td>[Características]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>[Segmento 2]</td><td>[Características]</td><td class="text-right">[%]%</td></tr>
+                    <tr><td>[Segmento 3]</td><td>[Características]</td><td class="text-right">[%]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">3.4 Tendências e Crescimento do Setor</h2>
+        <p>[Análise das tendências e previsões de crescimento]</p>
+
+        <h2 class="subsection">3.5 Sazonalidade e Ciclos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Mês</th><th>Fator Sazonal</th><th>Impacto nas Vendas</th></tr></thead>
+                <tbody>
+                    <tr><td>Janeiro</td><td class="text-right">[Fator]</td><td>[Descrição]</td></tr>
+                    <tr><td>Fevereiro</td><td class="text-right">[Fator]</td><td>[Descrição]</td></tr>
+                    <tr><td>Março</td><td class="text-right">[Fator]</td><td>[Descrição]</td></tr>
+                    <!-- ... até Dezembro -->
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">3.6 Barreiras de Entrada e Saída</h2>
+        <ul>
+            <li><strong>Barreiras de Entrada:</strong> [Lista]</li>
+            <li><strong>Barreiras de Saída:</strong> [Lista]</li>
+        </ul>
+
+        <h2 class="subsection">3.7 Fatores Externos (PESTLE)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Dimensão</th><th>Fator</th><th>Impacto</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Político</strong></td><td>[Fator]</td><td><span class="status-badge partial">Médio</span></td></tr>
+                    <tr><td><strong>Económico</strong></td><td>[Fator]</td><td><span class="status-badge complete">Alto</span></td></tr>
+                    <tr><td><strong>Social</strong></td><td>[Fator]</td><td><span class="status-badge partial">Médio</span></td></tr>
+                    <tr><td><strong>Tecnológico</strong></td><td>[Fator]</td><td><span class="status-badge complete">Alto</span></td></tr>
+                    <tr><td><strong>Legal</strong></td><td>[Fator]</td><td><span class="status-badge pending">Baixo</span></td></tr>
+                    <tr><td><strong>Ambiental</strong></td><td>[Fator]</td><td><span class="status-badge partial">Médio</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">3.8 Análise da Demanda</h2>
+        <p>[Análise da procura atual e futura]</p>
+
+        <h2 class="subsection">3.9 Elasticidade-Preço da Demanda</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Produto</th><th>P1 (Kz)</th><th>Q1</th><th>P2 (Kz)</th><th>Q2</th><th>Elasticidade</th><th>Classificação</th></tr></thead>
+                <tbody>
+                    <tr><td>[Produto 1]</td><td class="text-right">[P1]</td><td class="text-right">[Q1]</td><td class="text-right">[P2]</td><td class="text-right">[Q2]</td><td class="text-right">[E]</td><td>[Elástica/Inelástica]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 4 – ANÁLISE DA CONCORRÊNCIA
+    ============================================================ -->
+    <div class="sheet-content" id="sheet4">
+        <h1 class="section-title"><span class="num">IV</span> ANÁLISE DA CONCORRÊNCIA</h1>
+
+        <h2 class="subsection">4.1 Identificação dos Concorrentes</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Concorrente</th><th>Tipo</th><th>Quota de Mercado (%)</th><th>Pontos Fortes</th></tr></thead>
+                <tbody>
+                    <tr><td>[Concorrente 1]</td><td>Direta</td><td class="text-right">[%]%</td><td>[Forças]</td></tr>
+                    <tr><td>[Concorrente 2]</td><td>Indireta</td><td class="text-right">[%]%</td><td>[Forças]</td></tr>
+                    <tr><td>[Concorrente 3]</td><td>Substituta</td><td class="text-right">[%]%</td><td>[Forças]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">4.2 Análise das Cinco Forças de Porter</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Força</th><th>Score (1-5)</th><th>Classificação</th><th>Análise</th></tr></thead>
+                <tbody>
+                    <tr><td>Rivalidade entre Concorrentes</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alta/Média/Baixa]</span></td><td>[Análise]</td></tr>
+                    <tr><td>Ameaça de Novos Entrantes</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alta/Média/Baixa]</span></td><td>[Análise]</td></tr>
+                    <tr><td>Ameaça de Substitutos</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alta/Média/Baixa]</span></td><td>[Análise]</td></tr>
+                    <tr><td>Poder dos Clientes</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alta/Média/Baixa]</span></td><td>[Análise]</td></tr>
+                    <tr><td>Poder dos Fornecedores</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alta/Média/Baixa]</span></td><td>[Análise]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">4.3 Benchmarking Competitivo</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Dimensão</th><th>Projeto</th><th>Concorrente 1</th><th>Concorrente 2</th><th>Média Setor</th></tr></thead>
+                <tbody>
+                    <tr><td>Preço</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td></tr>
+                    <tr><td>Qualidade</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td></tr>
+                    <tr><td>Inovação</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td></tr>
+                    <tr><td>Serviço</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td></tr>
+                    <tr><td>Marketing</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td class="text-center">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">4.4 Matriz de Posicionamento Competitivo</h2>
+        <div class="highlight-card">
+            <p><strong>Posicionamento:</strong> O projeto posiciona-se como <strong>[Posicionamento]</strong>, competindo diretamente com <strong>[Concorrentes]</strong>.</p>
+        </div>
+
+        <h2 class="subsection">4.5 Vantagens Competitivas</h2>
+        <ul>
+            <li><strong>Vantagem 1:</strong> [Descrição]</li>
+            <li><strong>Vantagem 2:</strong> [Descrição]</li>
+            <li><strong>Vantagem 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">4.6 Estratégias da Concorrência</h2>
+        <p>[Análise das estratégias dos principais concorrentes]</p>
+
+        <h2 class="subsection">4.7 Participação de Mercado</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[X]%</div><div class="desc">Quota atual do projeto</div></div>
+            <div class="stat"><div class="value">[X]%</div><div class="desc">Quota projetada (Ano 3)</div></div>
+            <div class="stat"><div class="value">[X]%</div><div class="desc">Quota projetada (Ano 5)</div></div>
+        </div>
+
+        <h2 class="subsection">4.8 SWOT dos Principais Concorrentes</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Concorrente</th><th>Forças</th><th>Fraquezas</th><th>Oportunidades</th><th>Ameaças</th></tr></thead>
+                <tbody>
+                    <tr><td>[Concorrente 1]</td><td>[Forças]</td><td>[Fraquezas]</td><td>[Oportunidades]</td><td>[Ameaças]</td></tr>
+                    <tr><td>[Concorrente 2]</td><td>[Forças]</td><td>[Fraquezas]</td><td>[Oportunidades]</td><td>[Ameaças]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 5 – SWOT ORGANIZACIONAL
+    ============================================================ -->
+    <div class="sheet-content" id="sheet5">
+        <h1 class="section-title"><span class="num">V</span> ANÁLISE SWOT ORGANIZACIONAL</h1>
+
+        <h2 class="subsection">5.1 Forças (Strengths)</h2>
+        <ul>
+            <li><strong>Força 1:</strong> [Descrição]</li>
+            <li><strong>Força 2:</strong> [Descrição]</li>
+            <li><strong>Força 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">5.2 Fraquezas (Weaknesses)</h2>
+        <ul>
+            <li><strong>Fraqueza 1:</strong> [Descrição]</li>
+            <li><strong>Fraqueza 2:</strong> [Descrição]</li>
+            <li><strong>Fraqueza 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">5.3 Oportunidades (Opportunities)</h2>
+        <ul>
+            <li><strong>Oportunidade 1:</strong> [Descrição]</li>
+            <li><strong>Oportunidade 2:</strong> [Descrição]</li>
+            <li><strong>Oportunidade 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">5.4 Ameaças (Threats)</h2>
+        <ul>
+            <li><strong>Ameaça 1:</strong> [Descrição]</li>
+            <li><strong>Ameaça 2:</strong> [Descrição]</li>
+            <li><strong>Ameaça 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">5.5 Matriz SWOT Cruzada</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th style="width:15%;"></th><th style="width:30%;">Forças (S)</th><th style="width:30%;">Fraquezas (W)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Oportunidades (O)</strong></td><td><strong>Estratégia SO:</strong><br>[Como usar forças para aproveitar oportunidades]</td><td><strong>Estratégia WO:</strong><br>[Como superar fraquezas para aproveitar oportunidades]</td></tr>
+                    <tr><td><strong>Ameaças (T)</strong></td><td><strong>Estratégia ST:</strong><br>[Como usar forças para minimizar ameaças]</td><td><strong>Estratégia WT:</strong><br>[Como minimizar fraquezas e evitar ameaças]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">5.6 Estratégias Resultantes da Análise SWOT</h2>
+        <ul>
+            <li><strong>Estratégia 1:</strong> [Descrição]</li>
+            <li><strong>Estratégia 2:</strong> [Descrição]</li>
+            <li><strong>Estratégia 3:</strong> [Descrição]</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================
+    SHEET 6 – ESTRATÉGIA DE MARKETING
+    ============================================================ -->
+    <div class="sheet-content" id="sheet6">
+        <h1 class="section-title"><span class="num">VI</span> ESTRATÉGIA DE MARKETING E VENDAS</h1>
+
+        <h2 class="subsection">6.1 Segmentação e Targeting</h2>
+        <p>[Descrição dos segmentos-alvo e abordagem de targeting]</p>
+
+        <h2 class="subsection">6.2 Posicionamento de Marca</h2>
+        <p>[Posicionamento da marca no mercado]</p>
+
+        <h2 class="subsection">6.3 Mix de Marketing (4Ps/7Ps)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>P</th><th>Estratégia</th><th>Detalhe</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Produto</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Preço</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Praça</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Promoção</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Pessoas</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Processos</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                    <tr><td><strong>Evidência Física</strong></td><td>[Estratégia]</td><td>[Detalhe]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">6.4 Estratégia de Comunicação</h2>
+        <p>[Descrição da estratégia de comunicação]</p>
+
+        <h2 class="subsection">6.5 Marketing Digital</h2>
+        <p>[Descrição da estratégia de marketing digital]</p>
+
+        <h2 class="subsection">6.6 Funil de Vendas</h2>
+        <div class="highlight-card">
+            <p><strong>Funil de Vendas:</strong></p>
+            <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; background:white; padding:16px; border-radius:6px;">
+                <div style="text-align:center; flex:1; min-width:80px; background:#f0f7ff; padding:12px; border-radius:6px;">
+                    <strong>Topo</strong><br>Consciência
+                </div>
+                <div style="text-align:center; flex:1; min-width:80px; background:#e0edf9; padding:12px; border-radius:6px;">
+                    <strong>Meio</strong><br>Consideração
+                </div>
+                <div style="text-align:center; flex:1; min-width:80px; background:#c6dff0; padding:12px; border-radius:6px;">
+                    <strong>Fundo</strong><br>Conversão
+                </div>
+                <div style="text-align:center; flex:1; min-width:80px; background:#a0c8e0; padding:12px; border-radius:6px;">
+                    <strong>Pós-Venda</strong><br>Fidelização
+                </div>
+            </div>
+        </div>
+
+        <h2 class="subsection">6.7 Estratégia de Relacionamento com Clientes (CRM)</h2>
+        <p>[Descrição da estratégia de CRM]</p>
+
+        <h2 class="subsection">6.8 Métricas de Marketing e Vendas</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Métrica</th><th>Valor Atual</th><th>Meta</th></tr></thead>
+                <tbody>
+                    <tr><td>Custo de Aquisição de Cliente (CAC)</td><td class="text-right text-currency">[CAC]</td><td class="text-right text-currency">[Meta]</td></tr>
+                    <tr><td>Taxa de Conversão</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Retenção de Clientes</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>ROI de Marketing</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 7 – PLANO OPERACIONAL
+    ============================================================ -->
+    <div class="sheet-content" id="sheet7">
+        <h1 class="section-title"><span class="num">VII</span> PLANO OPERACIONAL</h1>
+
+        <h2 class="subsection">7.1 Localização e Layout</h2>
+        <p><strong>Localização:</strong> [Endereço completo]</p>
+        <p><strong>Área:</strong> [X] m²</p>
+        <p><strong>Layout:</strong> [Descrição do layout]</p>
+
+        <h2 class="subsection">7.2 Processo Produtivo/Operacional</h2>
+        <div class="highlight-card">
+            <p><strong>Fluxo do Processo:</strong></p>
+            <p style="font-size:14px; background: white; padding: 12px; border-radius: 6px; text-align: center;">
+                Input → [Etapa 1] → [Etapa 2] → [Etapa 3] → [Etapa 4] → Output
+            </p>
+        </div>
+
+        <h2 class="subsection">7.3 Capacidade Instalada e Utilizada</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Capacidade Instalada</th><th>Capacidade Utilizada (%)</th></tr></thead>
+                <tbody>
+                    <tr><td>Produção Diária</td><td class="text-right">[X] unidades</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Produção Mensal</td><td class="text-right">[X] unidades</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Produção Anual</td><td class="text-right">[X] unidades</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">7.4 Tecnologia e Sistemas</h2>
+        <p>[Descrição da tecnologia utilizada]</p>
+
+        <h2 class="subsection">7.5 Fornecedores e Cadeia de Suprimentos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fornecedor</th><th>Material/Input</th><th>Prazo de Entrega</th></tr></thead>
+                <tbody>
+                    <tr><td>[Fornecedor 1]</td><td>[Material]</td><td>[X] dias</td></tr>
+                    <tr><td>[Fornecedor 2]</td><td>[Material]</td><td>[X] dias</td></tr>
+                    <tr><td>[Fornecedor 3]</td><td>[Material]</td><td>[X] dias</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">7.6 Controle de Qualidade</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Ponto Crítico</th><th>Métrica</th><th>Frequência</th><th>Responsável</th></tr></thead>
+                <tbody>
+                    <tr><td>[Ponto 1]</td><td>[Métrica]</td><td>[Frequência]</td><td>[Responsável]</td></tr>
+                    <tr><td>[Ponto 2]</td><td>[Métrica]</td><td>[Frequência]</td><td>[Responsável]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">7.7 Gestão de Estoques</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Stock Segurança</th><th>Ponto de Encomenda</th><th>EOQ</th></tr></thead>
+                <tbody>
+                    <tr><td>[Item 1]</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>[Item 2]</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">7.8 Logística e Distribuição</h2>
+        <p>[Descrição da logística e canais de distribuição]</p>
+
+        <h2 class="subsection">7.9 Sustentabilidade e Responsabilidade Social</h2>
+        <p>[Descrição das práticas de sustentabilidade]</p>
+
+        <h2 class="subsection">7.10 Plano de Contingência Operacional</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Plano de Ação</th></tr></thead>
+                <tbody>
+                    <tr><td>[Risco 1]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td>[Plano]</td></tr>
+                    <tr><td>[Risco 2]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td>[Plano]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 8 – ESTRUTURA ORGANIZACIONAL
+    ============================================================ -->
+    <div class="sheet-content" id="sheet8">
+        <h1 class="section-title"><span class="num">VIII</span> ESTRUTURA ORGANIZACIONAL E GESTÃO</h1>
+
+        <h2 class="subsection">8.1 Organograma</h2>
+        <div class="highlight-card">
+            <pre style="font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; background: white; padding: 16px; border-radius: 6px; overflow-x: auto;">
+                    ┌─────────┐
+                    │   CEO   │
+                    └────┬────┘
+                         │
+         ┌───────────────┼───────────────┐
+         │               │               │
+      ┌──┴──┐         ┌──┴──┐         ┌──┴──┐
+      │ CFO │         │ COO │         │ CMO │
+      └─────┘         └─────┘         └─────┘
+         │               │               │
+      ┌──┴──┐         ┌──┴──┐         ┌──┴──┐
+      │Fin. │         │Oper.│         │Mkt. │
+      └─────┘         └─────┘         └─────┘
+            </pre>
+        </div>
+
+        <h2 class="subsection">8.2 Descrição de Cargos e Funções</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Cargo</th><th>Funções Principais</th><th>Requisitos</th></tr></thead>
+                <tbody>
+                    <tr><td>CEO</td><td>[Funções]</td><td>[Requisitos]</td></tr>
+                    <tr><td>CFO</td><td>[Funções]</td><td>[Requisitos]</td></tr>
+                    <tr><td>COO</td><td>[Funções]</td><td>[Requisitos]</td></tr>
+                    <tr><td>CMO</td><td>[Funções]</td><td>[Requisitos]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">8.3 Política de Recursos Humanos</h2>
+        <p>[Descrição da política de RH]</p>
+
+        <h2 class="subsection">8.4 Plano de Treinamento e Desenvolvimento</h2>
+        <p>[Descrição do plano de treinamento]</p>
+
+        <h2 class="subsection">8.5 Sistema de Remuneração e Incentivos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Cargo</th><th>Salário Base (Kz)</th><th>Bónus (%)</th><th>Benefícios</th></tr></thead>
+                <tbody>
+                    <tr><td>CEO</td><td class="text-right text-currency">[Salário]</td><td class="text-right">[X]%</td><td>[Benefícios]</td></tr>
+                    <tr><td>CFO</td><td class="text-right text-currency">[Salário]</td><td class="text-right">[X]%</td><td>[Benefícios]</td></tr>
+                    <tr><td>COO</td><td class="text-right text-currency">[Salário]</td><td class="text-right">[X]%</td><td>[Benefícios]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">8.6 Governança Corporativa</h2>
+        <p>[Descrição da estrutura de governança]</p>
+
+        <h2 class="subsection">8.7 Comitês e Conselhos</h2>
+        <p>[Descrição dos comitês e conselhos]</p>
+
+        <h2 class="subsection">8.8 Cultura Organizacional</h2>
+        <p>[Descrição da cultura organizacional]</p>
+
+        <h2 class="subsection">8.9 Gestão do Conhecimento</h2>
+        <p>[Descrição da gestão do conhecimento]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 9 – ANÁLISE DE RISCOS
+    ============================================================ -->
+    <div class="sheet-content" id="sheet9">
+        <h1 class="section-title"><span class="num">IX</span> ANÁLISE DE RISCOS</h1>
+
+        <h2 class="subsection">9.1 Identificação de Riscos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Categoria</th><th>Risco</th><th>Descrição</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Mercado</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                    <tr><td><strong>Operacional</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                    <tr><td><strong>Financeiro</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                    <tr><td><strong>Regulamentar</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                    <tr><td><strong>Tecnológico</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                    <tr><td><strong>Ambiental</strong></td><td>[Risco]</td><td>[Descrição]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">9.2 Matriz de Probabilidade x Impacto</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Risco</th><th>Probabilidade (1-5)</th><th>Impacto (1-5)</th><th>Nível de Risco</th></tr></thead>
+                <tbody>
+                    <tr><td>[Risco 1]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alto/Médio/Baixo]</span></td></tr>
+                    <tr><td>[Risco 2]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alto/Médio/Baixo]</span></td></tr>
+                    <tr><td>[Risco 3]</td><td class="text-center">[X]</td><td class="text-center">[X]</td><td><span class="status-badge partial">[Alto/Médio/Baixo]</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">9.3 Análise Quantitativa de Riscos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Risco</th><th>Probabilidade (%)</th><th>Impacto Financeiro (Kz)</th><th>Valor Esperado (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>[Risco 1]</td><td class="text-right">[X]%</td><td class="text-right text-currency">[Impacto]</td><td class="text-right text-currency">[VE]</td></tr>
+                    <tr><td>[Risco 2]</td><td class="text-right">[X]%</td><td class="text-right text-currency">[Impacto]</td><td class="text-right text-currency">[VE]</td></tr>
+                    <tr><td>[Risco 3]</td><td class="text-right">[X]%</td><td class="text-right text-currency">[Impacto]</td><td class="text-right text-currency">[VE]</td></tr>
+                    <tr class="table-total"><td><strong>Total</strong></td><td></td><td></td><td class="text-right text-currency"><strong>[Total VE]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">9.4 Estratégias de Mitigação</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Risco</th><th>Estratégia de Mitigação</th><th>Responsável</th></tr></thead>
+                <tbody>
+                    <tr><td>[Risco 1]</td><td>[Estratégia]</td><td>[Responsável]</td></tr>
+                    <tr><td>[Risco 2]</td><td>[Estratégia]</td><td>[Responsável]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">9.5 Planos de Contingência</h2>
+        <p>[Descrição dos planos de contingência]</p>
+
+        <h2 class="subsection">9.6 Monitoramento e Controle de Riscos</h2>
+        <p>[Descrição do monitoramento de riscos]</p>
+
+        <h2 class="subsection">9.7 Seguros e Garantias</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Tipo de Seguro</th><th>Fornecedor</th><th>Valor Segurado (Kz)</th><th>Prémio Anual (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Ativos Fixos</td><td>[Fornecedor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Prémio]</td></tr>
+                    <tr><td>Responsabilidade Civil</td><td>[Fornecedor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Prémio]</td></tr>
+                    <tr><td>Vida/Equipa</td><td>[Fornecedor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Prémio]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 10 – PROJEÇÕES FINANCEIRAS
+    ============================================================ -->
+    <div class="sheet-content" id="sheet10">
+        <h1 class="section-title"><span class="num">X</span> PROJEÇÕES FINANCEIRAS</h1>
+
+        <h2 class="subsection">10.1 Premissas e Metodologia</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Premissa</th><th>Valor</th><th>Fonte</th></tr></thead>
+                <tbody>
+                    <tr><td>Inflação Anual</td><td class="text-right">[X]%</td><td>BNA</td></tr>
+                    <tr><td>Taxa de Câmbio (USD/AOA)</td><td class="text-right">[X]</td><td>BNA</td></tr>
+                    <tr><td>Crescimento do Setor</td><td class="text-right">[X]%</td><td>INE</td></tr>
+                    <tr><td>Taxa de Desconto (WACC)</td><td class="text-right">[X]%</td><td>Calculado</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">10.2 Projeção da Receita</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Ano</th><th>Produto 1 (Kz)</th><th>Produto 2 (Kz)</th><th>Produto 3 (Kz)</th><th>Total (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Ano 1</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 2</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 3</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 4</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 5</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">10.3 Projeção dos Custos e Despesas</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Ano</th><th>Custos Variáveis</th><th>Custos Fixos</th><th>Despesas Operacionais</th><th>Total (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Ano 1</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 2</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 3</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 4</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                    <tr><td>Ano 5</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Valor]</td><td class="text-right text-currency">[Total]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">10.4 Demonstrações Financeiras Projetadas</h2>
+
+        <h3 class="subsubsection">10.4.1 Demonstração do Resultado do Exercício (DRE)</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Rubrica</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th><th>Ano 4</th><th>Ano 5</th></tr></thead>
+                <tbody>
+                    <tr><td>Receita Total</td><td class="text-right text-currency">[R1]</td><td class="text-right text-currency">[R2]</td><td class="text-right text-currency">[R3]</td><td class="text-right text-currency">[R4]</td><td class="text-right text-currency">[R5]</td></tr>
+                    <tr><td>(-) Custos Variáveis</td><td class="text-right text-currency">[CV1]</td><td class="text-right text-currency">[CV2]</td><td class="text-right text-currency">[CV3]</td><td class="text-right text-currency">[CV4]</td><td class="text-right text-currency">[CV5]</td></tr>
+                    <tr><td><strong>Margem Bruta</strong></td><td class="text-right text-currency"><strong>[MB1]</strong></td><td class="text-right text-currency"><strong>[MB2]</strong></td><td class="text-right text-currency"><strong>[MB3]</strong></td><td class="text-right text-currency"><strong>[MB4]</strong></td><td class="text-right text-currency"><strong>[MB5]</strong></td></tr>
+                    <tr><td>(-) Custos Fixos</td><td class="text-right text-currency">[CF1]</td><td class="text-right text-currency">[CF2]</td><td class="text-right text-currency">[CF3]</td><td class="text-right text-currency">[CF4]</td><td class="text-right text-currency">[CF5]</td></tr>
+                    <tr><td>(-) Despesas Operacionais</td><td class="text-right text-currency">[DO1]</td><td class="text-right text-currency">[DO2]</td><td class="text-right text-currency">[DO3]</td><td class="text-right text-currency">[DO4]</td><td class="text-right text-currency">[DO5]</td></tr>
+                    <tr><td><strong>EBITDA</strong></td><td class="text-right text-currency"><strong>[EB1]</strong></td><td class="text-right text-currency"><strong>[EB2]</strong></td><td class="text-right text-currency"><strong>[EB3]</strong></td><td class="text-right text-currency"><strong>[EB4]</strong></td><td class="text-right text-currency"><strong>[EB5]</strong></td></tr>
+                    <tr><td>(-) Amortizações</td><td class="text-right text-currency">[A1]</td><td class="text-right text-currency">[A2]</td><td class="text-right text-currency">[A3]</td><td class="text-right text-currency">[A4]</td><td class="text-right text-currency">[A5]</td></tr>
+                    <tr><td><strong>EBIT</strong></td><td class="text-right text-currency"><strong>[EBIT1]</strong></td><td class="text-right text-currency"><strong>[EBIT2]</strong></td><td class="text-right text-currency"><strong>[EBIT3]</strong></td><td class="text-right text-currency"><strong>[EBIT4]</strong></td><td class="text-right text-currency"><strong>[EBIT5]</strong></td></tr>
+                    <tr><td>(-) Impostos</td><td class="text-right text-currency">[I1]</td><td class="text-right text-currency">[I2]</td><td class="text-right text-currency">[I3]</td><td class="text-right text-currency">[I4]</td><td class="text-right text-currency">[I5]</td></tr>
+                    <tr class="table-total"><td><strong>Lucro Líquido</strong></td><td class="text-right text-currency"><strong>[LL1]</strong></td><td class="text-right text-currency"><strong>[LL2]</strong></td><td class="text-right text-currency"><strong>[LL3]</strong></td><td class="text-right text-currency"><strong>[LL4]</strong></td><td class="text-right text-currency"><strong>[LL5]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="subsubsection">10.4.2 Balanço Patrimonial</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Rubrica</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Ativo</strong></td><td></td><td></td><td></td></tr>
+                    <tr><td>Ativo Fixo</td><td class="text-right text-currency">[AF]</td><td class="text-right text-currency">[AF]</td><td class="text-right text-currency">[AF]</td></tr>
+                    <tr><td>Ativo Circulante</td><td class="text-right text-currency">[AC]</td><td class="text-right text-currency">[AC]</td><td class="text-right text-currency">[AC]</td></tr>
+                    <tr><td><strong>Total Ativo</strong></td><td class="text-right text-currency"><strong>[TA]</strong></td><td class="text-right text-currency"><strong>[TA]</strong></td><td class="text-right text-currency"><strong>[TA]</strong></td></tr>
+                    <tr><td><strong>Passivo</strong></td><td></td><td></td><td></td></tr>
+                    <tr><td>Passivo Circulante</td><td class="text-right text-currency">[PC]</td><td class="text-right text-currency">[PC]</td><td class="text-right text-currency">[PC]</td></tr>
+                    <tr><td>Passivo Não Circulante</td><td class="text-right text-currency">[PNC]</td><td class="text-right text-currency">[PNC]</td><td class="text-right text-currency">[PNC]</td></tr>
+                    <tr><td>Património Líquido</td><td class="text-right text-currency">[PL]</td><td class="text-right text-currency">[PL]</td><td class="text-right text-currency">[PL]</td></tr>
+                    <tr class="table-total"><td><strong>Total Passivo + PL</strong></td><td class="text-right text-currency"><strong>[TP]</strong></td><td class="text-right text-currency"><strong>[TP]</strong></td><td class="text-right text-currency"><strong>[TP]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="subsubsection">10.4.3 Demonstração do Fluxo de Caixa</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Rubrica</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Fluxo de Caixa Operacional</strong></td><td></td><td></td><td></td></tr>
+                    <tr><td>EBITDA</td><td class="text-right text-currency">[EBITDA]</td><td class="text-right text-currency">[EBITDA]</td><td class="text-right text-currency">[EBITDA]</td></tr>
+                    <tr><td>(-) Impostos</td><td class="text-right text-currency">[I]</td><td class="text-right text-currency">[I]</td><td class="text-right text-currency">[I]</td></tr>
+                    <tr><td>(-) Variação do Capital de Giro</td><td class="text-right text-currency">[VCG]</td><td class="text-right text-currency">[VCG]</td><td class="text-right text-currency">[VCG]</td></tr>
+                    <tr><td><strong>FCO</strong></td><td class="text-right text-currency"><strong>[FCO]</strong></td><td class="text-right text-currency"><strong>[FCO]</strong></td><td class="text-right text-currency"><strong>[FCO]</strong></td></tr>
+                    <tr><td><strong>Fluxo de Caixa de Investimento</strong></td><td></td><td></td><td></td></tr>
+                    <tr><td>(-) CAPEX</td><td class="text-right text-currency">[CAPEX]</td><td class="text-right text-currency">[CAPEX]</td><td class="text-right text-currency">[CAPEX]</td></tr>
+                    <tr><td><strong>FCI</strong></td><td class="text-right text-currency"><strong>[FCI]</strong></td><td class="text-right text-currency"><strong>[FCI]</strong></td><td class="text-right text-currency"><strong>[FCI]</strong></td></tr>
+                    <tr><td><strong>Fluxo de Caixa de Financiamento</strong></td><td></td><td></td><td></td></tr>
+                    <tr><td>Capital Próprio</td><td class="text-right text-currency">[CP]</td><td class="text-right text-currency">[CP]</td><td class="text-right text-currency">[CP]</td></tr>
+                    <tr><td>Financiamento Bancário</td><td class="text-right text-currency">[FB]</td><td class="text-right text-currency">[FB]</td><td class="text-right text-currency">[FB]</td></tr>
+                    <tr><td>(-) Amortização da Dívida</td><td class="text-right text-currency">[AD]</td><td class="text-right text-currency">[AD]</td><td class="text-right text-currency">[AD]</td></tr>
+                    <tr><td><strong>FCF</strong></td><td class="text-right text-currency"><strong>[FCF]</strong></td><td class="text-right text-currency"><strong>[FCF]</strong></td><td class="text-right text-currency"><strong>[FCF]</strong></td></tr>
+                    <tr class="table-total"><td><strong>Variação de Caixa</strong></td><td class="text-right text-currency"><strong>[VC]</strong></td><td class="text-right text-currency"><strong>[VC]</strong></td><td class="text-right text-currency"><strong>[VC]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">10.5 Análise do Ponto de Equilíbrio</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[X] <span class="currency">unidades</span></div><div class="desc">Ponto de Equilíbrio Contábil</div></div>
+            <div class="stat"><div class="value">[X] <span class="currency">unidades</span></div><div class="desc">Ponto de Equilíbrio Económico</div></div>
+            <div class="stat"><div class="value">[X] <span class="currency">unidades</span></div><div class="desc">Ponto de Equilíbrio Financeiro</div></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 11 – ANÁLISE DE VIABILIDADE ECONÓMICA
+    ============================================================ -->
+    <div class="sheet-content" id="sheet11">
+        <h1 class="section-title"><span class="num">XI</span> ANÁLISE DE VIABILIDADE ECONÓMICA</h1>
+
+        <h2 class="subsection">11.1 Custo de Capital (WACC)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Componente</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Custo da Dívida (Pré-Impostos)</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Taxa de Imposto</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Custo da Dívida (Pós-Impostos)</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Custo do Capital Próprio (CAPM)</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Peso da Dívida</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Peso do Capital Próprio</td><td class="text-right">[X]%</td></tr>
+                    <tr class="table-total"><td><strong>WACC</strong></td><td class="text-right"><strong>[X]%</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">11.2 Valor Presente Líquido (VPL)</h2>
+        <div class="highlight-card">
+            <p><strong>VPL = [VPL] Kz</strong></p>
+            <p class="text-muted">Calculado com taxa de desconto de [WACC]%</p>
+        </div>
+
+        <h2 class="subsection">11.3 Taxa Interna de Retorno (TIR)</h2>
+        <div class="highlight-card">
+            <p><strong>TIR = [TIR]%</strong></p>
+            <p class="text-muted">Comparada com WACC de [WACC]%</p>
+        </div>
+
+        <h2 class="subsection">11.4 Período de Payback</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[X] <span class="currency">anos</span></div><div class="desc">Payback Simples</div></div>
+            <div class="stat"><div class="value">[X] <span class="currency">anos</span></div><div class="desc">Payback Descontado</div></div>
+        </div>
+
+        <h2 class="subsection">11.5 Índice de Lucratividade (IL)</h2>
+        <div class="highlight-card">
+            <p><strong>IL = [X]</strong></p>
+            <p class="text-muted">IL > 1 indica projeto viável</p>
+        </div>
+
+        <h2 class="subsection">11.6 Retorno sobre Investimento (ROI)</h2>
+        <div class="highlight-card">
+            <p><strong>ROI = [X]%</strong></p>
+        </div>
+
+        <h2 class="subsection">11.7 Retorno sobre Património Líquido (ROE)</h2>
+        <div class="highlight-card">
+            <p><strong>ROE = [X]%</strong></p>
+        </div>
+
+        <h2 class="subsection">11.8 Retorno sobre Ativos (ROA)</h2>
+        <div class="highlight-card">
+            <p><strong>ROA = [X]%</strong></p>
+        </div>
+
+        <h2 class="subsection">11.9 Análise Custo-Benefício</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Benefício Total (VPL + Valor Residual)</td><td class="text-right text-currency">[Benefício]</td></tr>
+                    <tr><td>Custo Total (Investimento + OPEX)</td><td class="text-right text-currency">[Custo]</td></tr>
+                    <tr class="table-total"><td><strong>Relação Benefício/Custo</strong></td><td class="text-right"><strong>[X]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">11.10 Valor Económico Agregado (EVA)</h2>
+        <div class="highlight-card">
+            <p><strong>EVA = [X] Kz</strong></p>
+            <p class="text-muted">EVA positivo indica criação de valor</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 12 – SENSIBILIDADE E CENÁRIOS
+    ============================================================ -->
+    <div class="sheet-content" id="sheet12">
+        <h1 class="section-title"><span class="num">XII</span> ANÁLISE DE SENSIBILIDADE E CENÁRIOS</h1>
+
+        <h2 class="subsection">12.1 Análise de Sensibilidade</h2>
+
+        <h3 class="subsubsection">12.1.1 Variação de Receitas</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Variação</th><th>-20%</th><th>-10%</th><th>Base</th><th>+10%</th><th>+20%</th></tr></thead>
+                <tbody>
+                    <tr><td>VPL (Kz)</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>TIR (%)</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="subsubsection">12.1.2 Variação de Custos</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Variação</th><th>+20%</th><th>+10%</th><th>Base</th><th>-10%</th><th>-20%</th></tr></thead>
+                <tbody>
+                    <tr><td>VPL (Kz)</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>TIR (%)</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="subsubsection">12.1.3 Variação da Taxa de Desconto</h3>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>WACC</th><th>VPL (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>[X]%</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>[X]%</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>[X]% (Base)</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>[X]%</td><td class="text-right text-currency">[VPL]</td></tr>
+                    <tr><td>[X]%</td><td class="text-right text-currency">[VPL]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">12.2 Análise de Cenários</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Cenário</th><th>Receita</th><th>Custos</th><th>VPL (Kz)</th><th>TIR (%)</th><th>Payback (anos)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Otimista</strong></td><td>+[X]%</td><td>-[X]%</td><td class="text-right text-currency text-positive">[VPL]</td><td class="text-right text-positive">[X]%</td><td class="text-right">[X]</td></tr>
+                    <tr><td><strong>Realista (Base)</strong></td><td>0%</td><td>0%</td><td class="text-right text-currency">[VPL]</td><td class="text-right">[X]%</td><td class="text-right">[X]</td></tr>
+                    <tr><td><strong>Pessimista</strong></td><td>-[X]%</td><td>+[X]%</td><td class="text-right text-currency text-negative">[VPL]</td><td class="text-right text-negative">[X]%</td><td class="text-right">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">12.3 Simulação de Monte Carlo</h2>
+        <div class="highlight-card">
+            <p><strong>Resultados da Simulação (10.000 iterações):</strong></p>
+            <div class="highlight-grid" style="margin-top:12px;">
+                <div class="stat"><div class="value">[X]%</div><div class="desc">Probabilidade de Sucesso (VPL > 0)</div></div>
+                <div class="stat"><div class="value">[X] <span class="currency">Kz</span></div><div class="desc">VPL Médio</div></div>
+                <div class="stat"><div class="value">[X] <span class="currency">Kz</span></div><div class="desc">VPL (95% Confiança)</div></div>
+            </div>
+        </div>
+
+        <h2 class="subsection">12.4 Análise de Break-even</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Ponto de Equilíbrio (unidades)</td><td class="text-right">[X]</td></tr>
+                    <tr><td>Ponto de Equilíbrio (Kz)</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Margem de Segurança (%)</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">12.5 Teste de Stress</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Variável</th><th>Stress</th><th>Impacto no VPL</th></tr></thead>
+                <tbody>
+                    <tr><td>Inflação</td><td>+[X]%</td><td class="text-right text-negative">-[X]%</td></tr>
+                    <tr><td>Câmbio (USD/AOA)</td><td>+[X]%</td><td class="text-right text-negative">-[X]%</td></tr>
+                    <tr><td>Taxa de Juro</td><td>+[X]%</td><td class="text-right text-negative">-[X]%</td></tr>
+                    <tr><td>Demanda</td><td>-[X]%</td><td class="text-right text-negative">-[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">12.6 Análise de Elasticidade</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Produto</th><th>Elasticidade</th><th>Classificação</th><th>Recomendação</th></tr></thead>
+                <tbody>
+                    <tr><td>[Produto 1]</td><td class="text-right">[E]</td><td>[Elástica/Inelástica]</td><td>[Recomendação]</td></tr>
+                    <tr><td>[Produto 2]</td><td class="text-right">[E]</td><td>[Elástica/Inelástica]</td><td>[Recomendação]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 13 – NECESSIDADES DE FINANCIAMENTO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet13">
+        <h1 class="section-title"><span class="num">XIII</span> NECESSIDADES DE FINANCIAMENTO</h1>
+
+        <h2 class="subsection">13.1 Estrutura de Capital</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fonte</th><th>Valor (Kz)</th><th>%</th></tr></thead>
+                <tbody>
+                    <tr><td>Capital Próprio</td><td class="text-right text-currency">[CP]</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Financiamento Bancário</td><td class="text-right text-currency">[FB]</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Investidores Estratégicos</td><td class="text-right text-currency">[IE]</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Incentivos Fiscais</td><td class="text-right text-currency">[IF]</td><td class="text-right">[X]%</td></tr>
+                    <tr class="table-total"><td><strong>Total</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td><td class="text-right"><strong>100%</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.2 Investimento Inicial Requerido</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Rubrica</th><th>Valor (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Ativos Fixos (CAPEX)</td><td class="text-right text-currency">[CAPEX]</td></tr>
+                    <tr><td>Capital de Giro</td><td class="text-right text-currency">[CG]</td></tr>
+                    <tr><td>Investimentos Pré-Operacionais</td><td class="text-right text-currency">[IPO]</td></tr>
+                    <tr class="table-total"><td><strong>Total Investimento</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.3 Cronograma de Desembolso</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Mês</th><th>CAPEX (Kz)</th><th>Capital de Giro (Kz)</th><th>Total (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Mês 1</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Mês 2</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Mês 3</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Mês 4</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Mês 5</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr class="table-total"><td><strong>Total</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.4 Fontes de Financiamento</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fonte</th><th>Valor (Kz)</th><th>Condições</th></tr></thead>
+                <tbody>
+                    <tr><td>Capital Próprio</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Financiamento Bancário</td><td class="text-right text-currency">[X]</td><td>Taxa: [X]% · Prazo: [X] anos · Carência: [X] meses</td></tr>
+                    <tr><td>Investidores Estratégicos</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Incentivos Fiscais</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.5 Custos de Financiamento</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Indicador</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Taxa de Juro Nominal</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Taxa de Juro Efetiva</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Spread Bancário</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Custo Total do Financiamento</td><td class="text-right text-currency">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.6 Garantias e Colaterais</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Garantia</th><th>Tipo</th><th>Valor (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Hipoteca</td><td>Real</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Equipamentos</td><td>Real</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Fiador</td><td>Pessoal</td><td class="text-right text-currency">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">13.7 Covenant e Condicionantes</h2>
+        <ul>
+            <li><strong>Covenant 1:</strong> [Descrição]</li>
+            <li><strong>Covenant 2:</strong> [Descrição]</li>
+            <li><strong>Covenant 3:</strong> [Descrição]</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================
+    SHEET 14 – KPIs
+    ============================================================ -->
+    <div class="sheet-content" id="sheet14">
+        <h1 class="section-title"><span class="num">XIV</span> INDICADORES DE DESEMPENHO (KPIs)</h1>
+
+        <h2 class="subsection">14.1 Indicadores Financeiros</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>KPI</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td>Margem Bruta</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Margem EBITDA</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Margem Líquida</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>ROE</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>ROA</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.2 Indicadores Operacionais</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>KPI</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td>Produtividade (unidades/funcionário)</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>Taxa de Ocupação</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Lead Time (dias)</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>Taxa de Defeitos</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.3 Indicadores de Mercado</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>KPI</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td>Quota de Mercado</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>CAC (Kz)</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>LTV (Kz)</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Taxa de Retenção</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.4 Indicadores de Qualidade</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>KPI</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td>NPS</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>SAT (Satisfação)</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Reclamações</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.5 Indicadores de Sustentabilidade</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>KPI</th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr></thead>
+                <tbody>
+                    <tr><td>Pegada de Carbono (tCO2e)</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>Consumo de Água (m³)</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                    <tr><td>Índice de Impacto Social</td><td class="text-right">[X]</td><td class="text-right">[X]</td><td class="text-right">[X]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.6 Balanced Scorecard</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Perspetiva</th><th>Objetivo</th><th>KPI</th><th>Meta</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Financeira</strong></td><td>[Objetivo]</td><td>[KPI]</td><td>[Meta]</td></tr>
+                    <tr><td><strong>Clientes</strong></td><td>[Objetivo]</td><td>[KPI]</td><td>[Meta]</td></tr>
+                    <tr><td><strong>Processos</strong></td><td>[Objetivo]</td><td>[KPI]</td><td>[Meta]</td></tr>
+                    <tr><td><strong>Aprendizagem</strong></td><td>[Objetivo]</td><td>[KPI]</td><td>[Meta]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">14.7 Dashboard Executivo</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value" style="font-size:18px;">✅ [X]</div><div class="desc">KPIs no Verde</div></div>
+            <div class="stat"><div class="value" style="font-size:18px;">⚠️ [X]</div><div class="desc">KPIs em Alerta</div></div>
+            <div class="stat"><div class="value" style="font-size:18px;">🔴 [X]</div><div class="desc">KPIs em Crítico</div></div>
+        </div>
+
+        <h2 class="subsection">14.8 Sistema de Monitoramento</h2>
+        <p>[Descrição do sistema de monitoramento de KPIs]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 15 – CRONOGRAMA DE IMPLEMENTAÇÃO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet15">
+        <h1 class="section-title"><span class="num">XV</span> CRONOGRAMA DE IMPLEMENTAÇÃO</h1>
+
+        <h2 class="subsection">15.1 Fases do Projeto</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fase</th><th>Descrição</th><th>Duração</th><th>Início</th><th>Fim</th></tr></thead>
+                <tbody>
+                    <tr><td>Fase 1</td><td>Estudos e Licenciamento</td><td>[X] meses</td><td>[Data]</td><td>[Data]</td></tr>
+                    <tr><td>Fase 2</td><td>Aquisição de Equipamentos</td><td>[X] meses</td><td>[Data]</td><td>[Data]</td></tr>
+                    <tr><td>Fase 3</td><td>Construção/Instalação</td><td>[X] meses</td><td>[Data]</td><td>[Data]</td></tr>
+                    <tr><td>Fase 4</td><td>Recrutamento e Formação</td><td>[X] meses</td><td>[Data]</td><td>[Data]</td></tr>
+                    <tr><td>Fase 5</td><td>Início de Operações</td><td>[X] meses</td><td>[Data]</td><td>[Data]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">15.2 Marcos Principais (Milestones)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Marco</th><th>Data</th><th>Responsável</th></tr></thead>
+                <tbody>
+                    <tr><td>Obtenção de Licenças</td><td>[Data]</td><td>[Responsável]</td></tr>
+                    <tr><td>Aquisição de Equipamentos</td><td>[Data]</td><td>[Responsável]</td></tr>
+                    <tr><td>Obras Concluídas</td><td>[Data]</td><td>[Responsável]</td></tr>
+                    <tr><td>Equipa Contratada</td><td>[Data]</td><td>[Responsável]</td></tr>
+                    <tr><td>Início de Operações</td><td>[Data]</td><td>[Responsável]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">15.3 Cronograma Detalhado (Gantt)</h2>
+        <div class="highlight-card">
+            <div style="background:white; padding:16px; border-radius:6px; font-family:'Courier New',monospace; font-size:12px; overflow-x:auto;">
+                <pre style="margin:0;">
+                    Atividade                 | M1 | M2 | M3 | M4 | M5 | M6 | M7 | M8 | M9 | M10| M11| M12|
+                    ───────────────────────────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────│
+                    Estudos e Licenciamento   | ███│ ███│    │    │    │    │    │    │    │    │    │    │
+                    Aquisição Equipamentos    |    │    │ ███│ ███│ ███│    │    │    │    │    │    │    │
+                    Construção/Instalação     |    │    │    │    │ ███│ ███│ ███│ ███│    │    │    │    │
+                    Recrutamento e Formação   |    │    │    │    │    │    │ ███│ ███│ ███│    │    │    │
+                    Início de Operações       |    │    │    │    │    │    │    │    │    │ ███│ ███│ ███│
+                </pre>
+            </div>
+        </div>
+
+        <h2 class="subsection">15.4 Recursos Necessários por Fase</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fase</th><th>Recursos Humanos</th><th>Recursos Financeiros (Kz)</th><th>Equipamentos</th></tr></thead>
+                <tbody>
+                    <tr><td>Fase 1</td><td>[X] pessoas</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Fase 2</td><td>[X] pessoas</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Fase 3</td><td>[X] pessoas</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Fase 4</td><td>[X] pessoas</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                    <tr><td>Fase 5</td><td>[X] pessoas</td><td class="text-right text-currency">[X]</td><td>[Descrição]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">15.5 Dependências Críticas</h2>
+        <ul>
+            <li><strong>Dependência 1:</strong> [Descrição]</li>
+            <li><strong>Dependência 2:</strong> [Descrição]</li>
+            <li><strong>Dependência 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">15.6 Análise do Caminho Crítico</h2>
+        <p>[Descrição do caminho crítico do projeto]</p>
+
+        <h2 class="subsection">15.7 Plano de Comunicação</h2>
+        <p>[Descrição do plano de comunicação]</p>
+
+        <h2 class="subsection">15.8 Gestão de Mudanças</h2>
+        <p>[Descrição do processo de gestão de mudanças]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 16 – ASPECTOS LEGAIS
+    ============================================================ -->
+    <div class="sheet-content" id="sheet16">
+        <h1 class="section-title"><span class="num">XVI</span> ASPECTOS LEGAIS E REGULAMENTARES</h1>
+
+        <h2 class="subsection">16.1 Forma Jurídica</h2>
+        <p><strong>Natureza da Sociedade:</strong> [Sociedade Anónima / Lda / Unipessoal / ENI]</p>
+        <p><strong>Data de Constituição:</strong> [Data]</p>
+        <p><strong>NIF:</strong> [Número]</p>
+
+        <h2 class="subsection">16.2 Licenças e Autorizações</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Licença</th><th>Número</th><th>Emissor</th><th>Validade</th></tr></thead>
+                <tbody>
+                    <tr><td>Licença Comercial</td><td>[Nº]</td><td>[Emissor]</td><td>[Data]</td></tr>
+                    <tr><td>Licença Ambiental</td><td>[Nº]</td><td>MINAMB</td><td>[Data]</td></tr>
+                    <tr><td>Licença de Construção</td><td>[Nº]</td><td>[Emissor]</td><td>[Data]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">16.3 Contratos Principais</h2>
+        <ul>
+            <li><strong>Contrato 1:</strong> [Descrição]</li>
+            <li><strong>Contrato 2:</strong> [Descrição]</li>
+            <li><strong>Contrato 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">16.4 Propriedade Intelectual</h2>
+        <p>[Descrição da propriedade intelectual da empresa]</p>
+
+        <h2 class="subsection">16.5 Regime Tributário</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Imposto</th><th>Taxa (%)</th></tr></thead>
+                <tbody>
+                    <tr><td>Imposto Industrial</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>IVA</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>IRT</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">16.6 Planejamento Tributário</h2>
+        <p>[Descrição do planejamento tributário]</p>
+
+        <h2 class="subsection">16.7 Aspectos Trabalhistas</h2>
+        <p>[Descrição dos aspectos trabalhistas]</p>
+
+        <h2 class="subsection">16.8 Questões Ambientais</h2>
+        <p>[Descrição das questões ambientais]</p>
+
+        <h2 class="subsection">16.9 Compliance e Regulamentações</h2>
+        <p>[Descrição do compliance e regulamentações]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 17 – TECNOLOGIA DA INFORMAÇÃO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet17">
+        <h1 class="section-title"><span class="num">XVII</span> TECNOLOGIA DA INFORMAÇÃO</h1>
+
+        <h2 class="subsection">17.1 Arquitetura de TI</h2>
+        <p>[Descrição da arquitetura de TI]</p>
+
+        <h2 class="subsection">17.2 Sistemas de Gestão (ERP)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Sistema</th><th>Fornecedor</th><th>Função</th></tr></thead>
+                <tbody>
+                    <tr><td>ERP</td><td>[Fornecedor]</td><td>Gestão Integrada</td></tr>
+                    <tr><td>CRM</td><td>[Fornecedor]</td><td>Gestão de Clientes</td></tr>
+                    <tr><td>BI</td><td>[Fornecedor]</td><td>Inteligência de Negócios</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">17.3 Segurança da Informação</h2>
+        <p>[Descrição da política de segurança]</p>
+
+        <h2 class="subsection">17.4 Backup e Recuperação de Desastres</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Frequência de Backup</td><td>[Diário/Semanal]</td></tr>
+                    <tr><td>Local de Backup</td><td>[Nuvem/Off-site]</td></tr>
+                    <tr><td>RTO (Recovery Time Objective)</td><td>[X] horas</td></tr>
+                    <tr><td>RPO (Recovery Point Objective)</td><td>[X] horas</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">17.5 Investimentos em TI</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Item</th><th>Valor (Kz)</th></tr></thead>
+                <tbody>
+                    <tr><td>Hardware</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Software</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Licenças</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr><td>Serviços</td><td class="text-right text-currency">[X]</td></tr>
+                    <tr class="table-total"><td><strong>Total Investimento TI</strong></td><td class="text-right text-currency"><strong>[Total]</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">17.6 Inovação e Transformação Digital</h2>
+        <p>[Descrição da estratégia de inovação]</p>
+
+        <h2 class="subsection">17.7 Inteligência de Negócios</h2>
+        <p>[Descrição da estratégia de BI]</p>
+
+        <h2 class="subsection">17.8 E-commerce e Plataformas Digitais</h2>
+        <p>[Descrição das plataformas digitais]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 18 – SUSTENTABILIDADE E ESG
+    ============================================================ -->
+    <div class="sheet-content" id="sheet18">
+        <h1 class="section-title"><span class="num">XVIII</span> SUSTENTABILIDADE E ESG</h1>
+
+        <h2 class="subsection">18.1 Estratégia de Sustentabilidade</h2>
+        <p>[Descrição da estratégia de sustentabilidade]</p>
+
+        <h2 class="subsection">18.2 Aspectos Ambientais</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Indicador</th><th>Valor</th><th>Meta</th></tr></thead>
+                <tbody>
+                    <tr><td>Pegada de Carbono</td><td class="text-right">[X] tCO2e</td><td class="text-right">[X] tCO2e</td></tr>
+                    <tr><td>Consumo de Água</td><td class="text-right">[X] m³</td><td class="text-right">[X] m³</td></tr>
+                    <tr><td>Resíduos Reciclados</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                    <tr><td>Energia Renovável</td><td class="text-right">[X]%</td><td class="text-right">[X]%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">18.3 Responsabilidade Social</h2>
+        <p>[Descrição das práticas de responsabilidade social]</p>
+
+        <h2 class="subsection">18.4 Governança Corporativa</h2>
+        <p>[Descrição das práticas de governança]</p>
+
+        <h2 class="subsection">18.5 Métricas ESG</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Dimensão</th><th>Métrica</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Ambiental</strong></td><td>Intensidade de Carbono</td><td class="text-right">[X] kg CO2/€</td></tr>
+                    <tr><td><strong>Social</strong></td><td>Índice de Diversidade</td><td class="text-right">[X]%</td></tr>
+                    <tr><td><strong>Governança</strong></td><td>Composição do Conselho</td><td class="text-right">[X]% independentes</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">18.6 Certificações e Padrões</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Certificação</th><th>Padrão</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>ISO 9001</td><td>Qualidade</td><td><span class="status-badge pending">Pendente</span></td></tr>
+                    <tr><td>ISO 14001</td><td>Ambiente</td><td><span class="status-badge pending">Pendente</span></td></tr>
+                    <tr><td>SA 8000</td><td>Responsabilidade Social</td><td><span class="status-badge pending">Pendente</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">18.7 Relatórios de Sustentabilidade</h2>
+        <p>[Descrição dos relatórios de sustentabilidade]</p>
+
+        <h2 class="subsection">18.8 Impacto Social e Ambiental</h2>
+        <div class="highlight-card">
+            <p><strong>Impacto Social:</strong> [X] empregos diretos, [X] empregos indiretos</p>
+            <p><strong>Impacto Ambiental:</strong> Redução de [X] tCO2e/ano</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 19 – PLANO DE SAÍDA
+    ============================================================ -->
+    <div class="sheet-content" id="sheet19">
+        <h1 class="section-title"><span class="num">XIX</span> PLANO DE SAÍDA (EXIT STRATEGY)</h1>
+
+        <h2 class="subsection">19.1 Opções de Saída</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Opção</th><th>Potencial de Valorização</th><th>Prazo</th><th>Risco</th></tr></thead>
+                <tbody>
+                    <tr><td>IPO</td><td class="text-right">[X]%</td><td>[X] anos</td><td><span class="status-badge partial">Médio</span></td></tr>
+                    <tr><td>Venda Estratégica</td><td class="text-right">[X]%</td><td>[X] anos</td><td><span class="status-badge complete">Baixo</span></td></tr>
+                    <tr><td>MBO (Management Buy-Out)</td><td class="text-right">[X]%</td><td>[X] anos</td><td><span class="status-badge partial">Médio</span></td></tr>
+                    <tr><td>Venda a PE/VC</td><td class="text-right">[X]%</td><td>[X] anos</td><td><span class="status-badge partial">Médio</span></td></tr>
+                    <tr><td>Liquidação</td><td class="text-right">[X]%</td><td>[X] anos</td><td><span class="status-badge pending">Alto</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">19.2 Avaliação da Empresa</h2>
+        <div class="highlight-grid">
+            <div class="stat"><div class="value">[X] <span class="currency">Kz</span></div><div class="desc">Valuação por DCF</div></div>
+            <div class="stat"><div class="value">[X] <span class="currency">Kz</span></div><div class="desc">Valuação por Múltiplos</div></div>
+            <div class="stat"><div class="value">[X] <span class="currency">Kz</span></div><div class="desc">Valuação Média</div></div>
+        </div>
+
+        <h2 class="subsection">19.3 IPO (Oferta Pública Inicial)</h2>
+        <p>[Análise da viabilidade de IPO]</p>
+
+        <h2 class="subsection">19.4 Venda Estratégica</h2>
+        <p>[Análise de potenciais compradores]</p>
+
+        <h2 class="subsection">19.5 Aquisição de Gestão</h2>
+        <p>[Análise da viabilidade de MBO]</p>
+
+        <h2 class="subsection">19.6 Cronograma de Saída</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Fase</th><th>Atividade</th><th>Prazo</th></tr></thead>
+                <tbody>
+                    <tr><td>Fase 1</td><td>Preparação</td><td>[X] meses</td></tr>
+                    <tr><td>Fase 2</td><td>Due Diligence</td><td>[X] meses</td></tr>
+                    <tr><td>Fase 3</td><td>Negociação</td><td>[X] meses</td></tr>
+                    <tr><td>Fase 4</td><td>Fecho</td><td>[X] meses</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">19.7 Preparação para Saída</h2>
+        <ul>
+            <li><strong>Item 1:</strong> [Descrição]</li>
+            <li><strong>Item 2:</strong> [Descrição]</li>
+            <li><strong>Item 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">19.8 Diligência Devida</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Área</th><th>Status</th><th>Observações</th></tr></thead>
+                <tbody>
+                    <tr><td>Financeira</td><td><span class="status-badge complete">✅ OK</span></td><td>[Obs]</td></tr>
+                    <tr><td>Legal</td><td><span class="status-badge partial">⏳ Em curso</span></td><td>[Obs]</td></tr>
+                    <tr><td>Operacional</td><td><span class="status-badge complete">✅ OK</span></td><td>[Obs]</td></tr>
+                    <tr><td>Fiscal</td><td><span class="status-badge pending">⏳ Pendente</span></td><td>[Obs]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 20 – CONTROLE E MONITORAMENTO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet20">
+        <h1 class="section-title"><span class="num">XX</span> CONTROLE E MONITORAMENTO</h1>
+
+        <h2 class="subsection">20.1 Sistema de Controle Interno</h2>
+        <p>[Descrição do sistema de controle interno]</p>
+
+        <h2 class="subsection">20.2 Auditoria Interna</h2>
+        <p>[Descrição do processo de auditoria interna]</p>
+
+        <h2 class="subsection">20.3 Relatórios Gerenciais</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Relatório</th><th>Frequência</th><th>Destinatário</th></tr></thead>
+                <tbody>
+                    <tr><td>Relatório Mensal</td><td>Mensal</td><td>CEO</td></tr>
+                    <tr><td>Relatório Trimestral</td><td>Trimestral</td><td>Conselho</td></tr>
+                    <tr><td>Relatório Anual</td><td>Anual</td><td>Stakeholders</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">20.4 Reuniões de Acompanhamento</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Reunião</th><th>Frequência</th><th>Participantes</th></tr></thead>
+                <tbody>
+                    <tr><td>Reunião de Gestão</td><td>Semanal</td><td>Equipa Executiva</td></tr>
+                    <tr><td>Reunião de Projeto</td><td>Quinzenal</td><td>Equipa do Projeto</td></tr>
+                    <tr><td>Reunião de Conselho</td><td>Trimestral</td><td>Conselho de Administração</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">20.5 Revisões Periódicas</h2>
+        <p>[Descrição do processo de revisões periódicas]</p>
+
+        <h2 class="subsection">20.6 Ações Corretivas</h2>
+        <p>[Descrição do processo de ações corretivas]</p>
+
+        <h2 class="subsection">20.7 Melhoria Contínua</h2>
+        <p>[Descrição do processo de melhoria contínua]</p>
+
+        <h2 class="subsection">20.8 Gestão de Performance</h2>
+        <p>[Descrição do sistema de gestão de performance]</p>
+    </div>
+
+    <!-- ============================================================
+    SHEET 21 – CONCLUSÕES E RECOMENDAÇÕES
+    ============================================================ -->
+    <div class="sheet-content" id="sheet21">
+        <h1 class="section-title"><span class="num">XXI</span> CONCLUSÕES E RECOMENDAÇÕES</h1>
+
+        <h2 class="subsection">21.1 Síntese da Viabilidade</h2>
+        <div class="highlight-card">
+            <p><strong>Conclusão:</strong> O projeto é <strong>viável</strong> do ponto de vista económico-financeiro, apresentando indicadores superiores aos benchmarks do setor.</p>
+        </div>
+
+        <h2 class="subsection">21.2 Principais Conclusões</h2>
+        <ul>
+            <li><strong>Conclusão 1:</strong> [Descrição]</li>
+            <li><strong>Conclusão 2:</strong> [Descrição]</li>
+            <li><strong>Conclusão 3:</strong> [Descrição]</li>
+            <li><strong>Conclusão 4:</strong> [Descrição]</li>
+            <li><strong>Conclusão 5:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">21.3 Recomendações Estratégicas</h2>
+        <ul>
+            <li><strong>Recomendação 1:</strong> [Descrição]</li>
+            <li><strong>Recomendação 2:</strong> [Descrição]</li>
+            <li><strong>Recomendação 3:</strong> [Descrição]</li>
+            <li><strong>Recomendação 4:</strong> [Descrição]</li>
+            <li><strong>Recomendação 5:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">21.4 Próximos Passos</h2>
+        <ol>
+            <li><strong>Passo 1:</strong> [Descrição]</li>
+            <li><strong>Passo 2:</strong> [Descrição]</li>
+            <li><strong>Passo 3:</strong> [Descrição]</li>
+            <li><strong>Passo 4:</strong> [Descrição]</li>
+            <li><strong>Passo 5:</strong> [Descrição]</li>
+        </ol>
+
+        <h2 class="subsection">21.5 Fatores Críticos de Sucesso</h2>
+        <ul>
+            <li><strong>Fator 1:</strong> [Descrição]</li>
+            <li><strong>Fator 2:</strong> [Descrição]</li>
+            <li><strong>Fator 3:</strong> [Descrição]</li>
+            <li><strong>Fator 4:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">21.6 Riscos e Mitigação</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Risco</th><th>Mitigação</th></tr></thead>
+                <tbody>
+                    <tr><td>[Risco 1]</td><td>[Mitigação]</td></tr>
+                    <tr><td>[Risco 2]</td><td>[Mitigação]</td></tr>
+                    <tr><td>[Risco 3]</td><td>[Mitigação]</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">21.7 Oportunidades de Melhoria</h2>
+        <ul>
+            <li><strong>Oportunidade 1:</strong> [Descrição]</li>
+            <li><strong>Oportunidade 2:</strong> [Descrição]</li>
+            <li><strong>Oportunidade 3:</strong> [Descrição]</li>
+        </ul>
+
+        <h2 class="subsection">21.8 Decisão Final</h2>
+        <div class="highlight-card" style="border-left-color: #15803d;">
+            <p style="font-size:18px; font-weight:700; color:#15803d;">✅ RECOMENDADO</p>
+            <p>Com base na análise completa, recomenda-se <strong>aprovar o projeto</strong> e iniciar a implementação conforme o cronograma definido.</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 22 – ANEXOS
+    ============================================================ -->
+    <div class="sheet-content" id="sheet22">
+        <h1 class="section-title"><span class="num">XXII</span> ANEXOS</h1>
+
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Anexo</th><th>Descrição</th><th>Ficheiro</th></tr></thead>
+                <tbody>
+                    <tr><td>22.1</td><td>Demonstrações Financeiras Detalhadas</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.2</td><td>Pesquisas de Mercado</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.3</td><td>Contratos e Documentos Legais</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.4</td><td>Plantas e Projetos Técnicos</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.5</td><td>Currículos da Equipe</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.6</td><td>Cartas de Intenção</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.7</td><td>Estudos Técnicos</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.8</td><td>Pareceres Especializados</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.9</td><td>Planilhas de Cálculo</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.10</td><td>Material de Marketing</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.11</td><td>Certificações e Licenças</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                    <tr><td>22.12</td><td>Bibliografia e Referências</td><td><span class="status-badge partial">⏳ Anexar</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SHEET 23 – GLOSSÁRIO
+    ============================================================ -->
+    <div class="sheet-content" id="sheet23">
+        <h1 class="section-title"><span class="num">XXIII</span> GLOSSÁRIO</h1>
+
+        <h2 class="subsection">23.1 Termos Técnicos</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>CAPEX</strong></td><td>Capital Expenditure – Investimento em ativos fixos (equipamentos, infraestrutura, etc.)</td></tr>
+                    <tr><td><strong>OPEX</strong></td><td>Operational Expenditure – Custos operacionais recorrentes</td></tr>
+                    <tr><td><strong>EBITDA</strong></td><td>Earnings Before Interest, Taxes, Depreciation and Amortization</td></tr>
+                    <tr><td><strong>WACC</strong></td><td>Weighted Average Cost of Capital – Custo médio ponderado de capital</td></tr>
+                    <tr><td><strong>VPL</strong></td><td>Valor Presente Líquido (Net Present Value – NPV)</td></tr>
+                    <tr><td><strong>TIR</strong></td><td>Taxa Interna de Retorno (Internal Rate of Return – IRR)</td></tr>
+                    <tr><td><strong>Payback</strong></td><td>Período de recuperação do investimento</td></tr>
+                    <tr><td><strong>ROI</strong></td><td>Return on Investment – Retorno sobre o investimento</td></tr>
+                    <tr><td><strong>ROE</strong></td><td>Return on Equity – Retorno sobre o património líquido</td></tr>
+                    <tr><td><strong>ROA</strong></td><td>Return on Assets – Retorno sobre os ativos</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">23.2 Siglas e Abreviações</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Sigla</th><th>Significado</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>BFA</strong></td><td>Banco de Fomento Angola</td></tr>
+                    <tr><td><strong>BDA</strong></td><td>Banco de Desenvolvimento de Angola</td></tr>
+                    <tr><td><strong>AIPEX</strong></td><td>Agência de Investimento Privado e Exportação</td></tr>
+                    <tr><td><strong>INE</strong></td><td>Instituto Nacional de Estatística</td></tr>
+                    <tr><td><strong>AGT</strong></td><td>Administração Geral Tributária</td></tr>
+                    <tr><td><strong>BNA</strong></td><td>Banco Nacional de Angola</td></tr>
+                    <tr><td><strong>ESG</strong></td><td>Environmental, Social and Governance</td></tr>
+                    <tr><td><strong>CRM</strong></td><td>Customer Relationship Management</td></tr>
+                    <tr><td><strong>ERP</strong></td><td>Enterprise Resource Planning</td></tr>
+                    <tr><td><strong>BCP/DR</strong></td><td>Business Continuity Plan / Disaster Recovery</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">23.3 Conceitos Financeiros</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Conceito</th><th>Definição</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Fluxo de Caixa</strong></td><td>Movimentação de entradas e saídas de recursos financeiros</td></tr>
+                    <tr><td><strong>Capital de Giro</strong></td><td>Recursos necessários para financiar as operações diárias da empresa</td></tr>
+                    <tr><td><strong>Amortização</strong></td><td>Depreciação de ativos ao longo do tempo</td></tr>
+                    <tr><td><strong>Ponto de Equilíbrio</strong></td><td>Nível de vendas em que a receita iguala os custos</td></tr>
+                    <tr><td><strong>Margem Bruta</strong></td><td>Percentagem da receita que excede o custo dos produtos vendidos</td></tr>
+                    <tr><td><strong>EVA</strong></td><td>Economic Value Added – Valor económico agregado</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subsection">23.4 Terminologia do Setor</h2>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>[Termo 1]</strong></td><td>[Definição específica do setor]</td></tr>
+                    <tr><td><strong>[Termo 2]</strong></td><td>[Definição específica do setor]</td></tr>
+                    <tr><td><strong>[Termo 3]</strong></td><td>[Definição específica do setor]</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <div class="footer">
+        <div>
+            <span style="font-weight:700;">ViabilizA+ África</span>
+            <span style="margin-left:20px;">Estudo de Viabilidade · Modelo Oficial</span>
+        </div>
+        <div>
+            <span class="confidential">🔒 CONFIDENCIAL</span>
+            <span style="margin-left:20px;">Documento v1.0 · Julho 2026</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============================================================
+SCRIPT – NAVEGAÇÃO ENTRE ABAS
+============================================================ -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.sheet-tab');
+        const contents = document.querySelectorAll('.sheet-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active de todas as tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Remove active de todos os conteúdos
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Adiciona active na tab clicada
+                this.classList.add('active');
+
+                // Mostra o conteúdo correspondente
+                const target = this.dataset.sheet;
+                const content = document.getElementById(target);
+                if (content) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
