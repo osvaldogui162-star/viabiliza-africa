@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/brand-logo";
@@ -54,6 +55,7 @@ function NavLink({
 export function MarketingHeader() {
   const pathname = usePathname();
   const { isAuthenticated, isLoading } = useAuth();
+  const reduce = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -75,7 +77,10 @@ export function MarketingHeader() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={reduce ? false : { y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           "landing-header sticky top-0 z-50 transition-[box-shadow,background] duration-300",
           scrolled
@@ -143,7 +148,7 @@ export function MarketingHeader() {
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-      </header>
+      </motion.header>
 
       <div
         id="landing-mobile-nav"

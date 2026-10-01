@@ -3233,6 +3233,106 @@ body {
   font-family: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
 }
 
+.landing-section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .landing-section-padding {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
+.landing-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #047857;
+}
+
+.landing-eyebrow-light {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.landing-heading-lg {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.landing-heading-xl {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.landing-text-shimmer {
+  background: linear-gradient(
+    120deg,
+    #fff 0%,
+    #fff 38%,
+    rgba(198, 164, 63, 0.95) 50%,
+    #fff 62%,
+    #fff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: landing-text-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes landing-text-shimmer {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.landing-hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.landing-glow-border {
+  position: relative;
+  border-radius: 1rem;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.landing-glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(4, 120, 87, 0.35), rgba(198, 164, 63, 0.25), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.landing-glow-border:hover::before {
+  opacity: 1;
+}
+
+.landing-glow-border:hover {
+  box-shadow: 0 20px 40px -16px rgba(4, 120, 87, 0.25);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .landing-marquee,
   .landing-stat-card,
@@ -3245,7 +3345,8 @@ body {
   .landing-hero-exit-prev,
   .landing-hero-shimmer,
   .landing-hero-img-scale,
-  .landing-hero-progress {
+  .landing-hero-progress,
+  .landing-text-shimmer {
     animation: none;
     opacity: 1;
     transform: none;

@@ -13,6 +13,13 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+import {
+  MARKETING_HERO_AFRICA,
+  MARKETING_HERO_MULTISECTOR,
+  MARKETING_HERO_TRACEABILITY,
+  MARKETING_HERO_VIABILITY,
+} from "@/lib/constants/brand-assets";
+
 type Slide = {
   id: string;
   badge: string;
@@ -34,7 +41,7 @@ const SLIDES: Slide[] = [
     description:
       "Modelação financeira rigorosa, cenários Monte Carlo e indicadores de retorno — tudo numa plataforma pensada para o mercado africano.",
     icon: TrendingUp,
-    image: "/subscription/hero-viability.png",
+    image: MARKETING_HERO_VIABILITY,
     stats: [
       { label: "Sectores", value: "6+" },
       { label: "Relatórios", value: "BFA · BDA · AIPEX" },
@@ -50,7 +57,7 @@ const SLIDES: Slide[] = [
     description:
       "Transparência absoluta em orçamentos, custos e relatórios. QR Code e trilha de auditoria para conformidade institucional.",
     icon: ShieldCheck,
-    image: "/subscription/hero-traceability.png",
+    image: MARKETING_HERO_TRACEABILITY,
     stats: [
       { label: "Integridade", value: "100%" },
       { label: "Auditoria", value: "Completa" },
@@ -66,7 +73,7 @@ const SLIDES: Slide[] = [
     description:
       "DSSAT para 42+ culturas, Digital Twin industrial, análise de sensibilidade e relatórios ESG integrados num só ecossistema.",
     icon: Leaf,
-    image: "/subscription/hero-multisector.png",
+    image: MARKETING_HERO_MULTISECTOR,
     stats: [
       { label: "Culturas DSSAT", value: "42+" },
       { label: "Digital Twin", value: "✓" },
@@ -82,7 +89,7 @@ const SLIDES: Slide[] = [
     description:
       "Preços acessíveis, faturação em AOA, suporte em português e integração com bancos e instituições angolanas.",
     icon: Globe2,
-    image: "/subscription/hero-africa.png",
+    image: MARKETING_HERO_AFRICA,
     stats: [
       { label: "Moedas", value: "USD · AOA" },
       { label: "Desconto anual", value: "17%" },

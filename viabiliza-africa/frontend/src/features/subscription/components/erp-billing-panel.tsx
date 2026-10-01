@@ -97,7 +97,7 @@ export function ErpBillingPanel({ capabilities }: { capabilities: PlanCapabiliti
   }
 
   async function downloadAgt(docId: string) {
-    const token = tokenStore.get();
+    const token = tokenStore.getAccessToken();
     const url = erpBillingApi.agtExportUrl(docId);
     const res = await fetch(url, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},

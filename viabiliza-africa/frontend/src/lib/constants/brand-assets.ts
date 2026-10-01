@@ -23,6 +23,12 @@ export const BRAND_HOME_BANNERS = [
   BRAND_BANNER_CONFIANCA,
 ] as const;
 
+/** Visuais de campanha (planos / landing) — ficheiros em public/subscription e auth */
+export const MARKETING_HERO_VIABILITY = "/subscription/banner-investimento.png" as const;
+export const MARKETING_HERO_TRACEABILITY = "/auth/slides/viabiliza-confianca.png" as const;
+export const MARKETING_HERO_MULTISECTOR = "/subscription/banner-app.png" as const;
+export const MARKETING_HERO_AFRICA = "/brand/banners/banner-investimento.png" as const;
+
 /** Proporção nativa do logótipo completo (1024 × 393) */
 export const BRAND_LOGO_ASPECT = 1024 / 393;
 
