@@ -135,6 +135,8 @@ export interface PlanCapabilities {
   digital_twin_enabled: boolean;
   sroi_enabled: boolean;
   priority_support: boolean;
+  erp_billing_integration?: boolean;
+  erp_auto_fiscal_invoice?: boolean;
 }
 
 export interface MySubscriptionResponse {

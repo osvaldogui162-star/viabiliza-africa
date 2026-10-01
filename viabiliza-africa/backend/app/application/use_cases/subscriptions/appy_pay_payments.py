@@ -11,6 +11,8 @@ from app.domain.enums.subscription_status import SubscriptionStatus
 from app.domain.exceptions.domain_exceptions import EntityNotFoundError, ValidationError
 from app.domain.repositories.admin_config_repository import ISubscriptionRepository
 from app.domain.repositories.payment_repository import ISubscriptionPaymentRepository
+from typing import TYPE_CHECKING
+
 from app.infrastructure.payments.appy_pay_client import (
     AppyPayClient,
     AppyPayError,
@@ -21,6 +23,11 @@ from app.infrastructure.payments.appy_pay_client import (
     is_sandbox_gpo_phone,
     map_appypay_status,
 )
+
+if TYPE_CHECKING:
+    from app.application.use_cases.erp_billing.erp_billing_use_cases import (
+        IssueSubscriptionFiscalDocumentUseCase,
+    )
 
 
 class InitiateAppyPayPaymentUseCase:
@@ -34,6 +41,7 @@ class InitiateAppyPayPaymentUseCase:
         commercial_pricing: CommercialPricingService,
         *,
         sandbox: bool = True,
+        issue_fiscal_document_use_case: "IssueSubscriptionFiscalDocumentUseCase | None" = None,
     ) -> None:
         self._subs = subscription_repository
         self._payments = payment_repository
@@ -41,6 +49,7 @@ class InitiateAppyPayPaymentUseCase:
         self._sandbox = sandbox
         self._commercial = commercial_pricing
         self._checkout = PrepareCheckoutUseCase(subscription_repository, commercial_pricing)
+        self._issue_fiscal = issue_fiscal_document_use_case
 
     def execute(
         self,
@@ -161,12 +170,18 @@ class InitiateAppyPayPaymentUseCase:
             payment_verified=True,
         )
         subscription_id = result["subscription"]["id"]
-        return self._payments.update_from_appypay(
+        updated = self._payments.update_from_appypay(
             UUID(payment["id"]),
             status="paid",
             paid_at=datetime.now(timezone.utc),
             subscription_id=UUID(subscription_id),
         )
+        if self._issue_fiscal:
+            try:
+                self._issue_fiscal.execute(user_id=user_id, payment_id=UUID(updated["id"]))
+            except Exception:
+                pass
+        return updated
 
 
 class PollAppyPayPaymentUseCase:
@@ -178,6 +193,7 @@ class PollAppyPayPaymentUseCase:
         commercial_pricing: CommercialPricingService,
         *,
         sandbox: bool = True,
+        issue_fiscal_document_use_case: "IssueSubscriptionFiscalDocumentUseCase | None" = None,
     ) -> None:
         self._subs = subscription_repository
         self._payments = payment_repository
@@ -189,6 +205,7 @@ class PollAppyPayPaymentUseCase:
             appy_pay_client,
             commercial_pricing,
             sandbox=sandbox,
+            issue_fiscal_document_use_case=issue_fiscal_document_use_case,
         )
 
     def execute(self, *, user_id: UUID, payment_id: UUID) -> dict:
@@ -244,6 +261,7 @@ class MockAppyPayReferenceUseCase:
         commercial_pricing: CommercialPricingService,
         *,
         sandbox: bool = True,
+        issue_fiscal_document_use_case: "IssueSubscriptionFiscalDocumentUseCase | None" = None,
     ) -> None:
         self._payments = payment_repository
         self._appy = appy_pay_client
@@ -253,6 +271,7 @@ class MockAppyPayReferenceUseCase:
             appy_pay_client,
             commercial_pricing,
             sandbox=sandbox,
+            issue_fiscal_document_use_case=issue_fiscal_document_use_case,
         )
 
     def execute(self, *, user_id: UUID, payment_id: UUID) -> dict:

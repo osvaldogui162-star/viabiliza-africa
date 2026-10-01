@@ -352,6 +352,16 @@ from app.infrastructure.supabase.project_financing_repository import (
 )
 from app.infrastructure.supabase.project_repository import SupabaseProjectRepository
 from app.infrastructure.supabase.analyst_office_repository import SupabaseAnalystOfficeRepository
+from app.infrastructure.supabase.erp_billing_repository import SupabaseAccountErpBillingRepository
+from app.application.services.erp_billing_entitlement import ErpBillingEntitlementService
+from app.application.use_cases.erp_billing.erp_billing_use_cases import (
+    GetAccountErpBillingUseCase,
+    GetSubscriptionFiscalDocumentExportUseCase,
+    IssueSubscriptionFiscalDocumentUseCase,
+    ListErpBillingProvidersUseCase,
+    SaveAccountErpBillingUseCase,
+    TestAccountErpBillingUseCase,
+)
 from app.infrastructure.supabase.project_share_repository import SupabaseProjectShareRepository
 from app.infrastructure.supabase.report_repository import (
     SupabaseBankSubmissionRepository,
@@ -592,6 +602,12 @@ class Container:
     poll_appypay_payment_use_case: PollAppyPayPaymentUseCase
     mock_appypay_reference_use_case: MockAppyPayReferenceUseCase
     appy_pay_client: AppyPayClient
+    list_erp_billing_providers_use_case: ListErpBillingProvidersUseCase
+    get_account_erp_billing_use_case: GetAccountErpBillingUseCase
+    save_account_erp_billing_use_case: SaveAccountErpBillingUseCase
+    test_account_erp_billing_use_case: TestAccountErpBillingUseCase
+    get_subscription_fiscal_export_use_case: GetSubscriptionFiscalDocumentExportUseCase
+    issue_subscription_fiscal_document_use_case: IssueSubscriptionFiscalDocumentUseCase
 
 
 def _create_trello_provider(config: Config):
@@ -683,6 +699,7 @@ def build_container(config: Config | None = None) -> Container:
     budget_template_repository = SupabaseBudgetTemplateRepository(supabase)
     subscription_repository = SupabaseSubscriptionRepository(supabase)
     payment_repository = SupabaseSubscriptionPaymentRepository(supabase)
+    account_erp_billing_repository = SupabaseAccountErpBillingRepository(supabase)
     platform_settings_repository = SupabasePlatformSettingsRepository(supabase)
     commercial_pricing_service = CommercialPricingService(platform_settings_repository)
     appy_pay_client = AppyPayClient(config)
@@ -762,6 +779,17 @@ def build_container(config: Config | None = None) -> Container:
     )
     email_service = SmtpEmailService(config, integration_config_service)
     subscription_service = SubscriptionService(subscription_repository)
+    erp_billing_entitlement_service = ErpBillingEntitlementService(
+        subscription_repository,
+        subscription_service,
+        account_erp_billing_repository,
+    )
+    issue_subscription_fiscal_document_use_case = IssueSubscriptionFiscalDocumentUseCase(
+        account_erp_billing_repository,
+        payment_repository,
+        user_repository,
+        erp_billing_entitlement_service,
+    )
     user_access_enforcement = UserAccessEnforcementService(
         user_repository, subscription_repository
     )
@@ -1477,6 +1505,7 @@ def build_container(config: Config | None = None) -> Container:
             appy_pay_client,
             commercial_pricing_service,
             sandbox=config.APPYPAY_SANDBOX,
+            issue_fiscal_document_use_case=issue_subscription_fiscal_document_use_case,
         ),
         poll_appypay_payment_use_case=PollAppyPayPaymentUseCase(
             subscription_repository,
@@ -1484,6 +1513,7 @@ def build_container(config: Config | None = None) -> Container:
             appy_pay_client,
             commercial_pricing_service,
             sandbox=config.APPYPAY_SANDBOX,
+            issue_fiscal_document_use_case=issue_subscription_fiscal_document_use_case,
         ),
         mock_appypay_reference_use_case=MockAppyPayReferenceUseCase(
             subscription_repository,
@@ -1491,8 +1521,27 @@ def build_container(config: Config | None = None) -> Container:
             appy_pay_client,
             commercial_pricing_service,
             sandbox=config.APPYPAY_SANDBOX,
+            issue_fiscal_document_use_case=issue_subscription_fiscal_document_use_case,
         ),
         appy_pay_client=appy_pay_client,
+        list_erp_billing_providers_use_case=ListErpBillingProvidersUseCase(),
+        get_account_erp_billing_use_case=GetAccountErpBillingUseCase(
+            account_erp_billing_repository,
+            erp_billing_entitlement_service,
+        ),
+        save_account_erp_billing_use_case=SaveAccountErpBillingUseCase(
+            account_erp_billing_repository,
+            erp_billing_entitlement_service,
+        ),
+        test_account_erp_billing_use_case=TestAccountErpBillingUseCase(
+            account_erp_billing_repository,
+            erp_billing_entitlement_service,
+        ),
+        get_subscription_fiscal_export_use_case=GetSubscriptionFiscalDocumentExportUseCase(
+            account_erp_billing_repository,
+            erp_billing_entitlement_service,
+        ),
+        issue_subscription_fiscal_document_use_case=issue_subscription_fiscal_document_use_case,
         project_financing_repository=project_financing_repository,
         financier_access_policy=financier_access_policy,
         create_project_financing_use_case=CreateProjectFinancingUseCase(

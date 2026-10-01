@@ -182,3 +182,6 @@ class SubscriptionService:
 
     def ensure_sroi(self, user: User) -> None:
         self.ensure_feature(user, "sroi")
+
+    def ensure_erp_billing(self, user: User) -> None:
+        self.ensure_feature(user, "erp_billing_integration")

@@ -52,6 +52,8 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "contact_only": False,
             "hidden_from_pricing": True,
             "plan_tier": "internal",
+            "erp_billing_integration": False,
+            "erp_auto_fiscal_invoice": False,
         }
     if code == "starter":
         return {
@@ -68,6 +70,8 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "plan_tier": "main",
             "emoji": "🚀",
             "popular": True,
+            "erp_billing_integration": True,
+            "erp_auto_fiscal_invoice": False,
         }
     if code == "business":
         return {
@@ -84,6 +88,8 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "plan_tier": "main",
             "emoji": "🏢",
             "popular": False,
+            "erp_billing_integration": True,
+            "erp_auto_fiscal_invoice": True,
         }
     if code == "enterprise":
         return {
@@ -102,6 +108,8 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "plan_tier": "main",
             "emoji": "👑",
             "popular": False,
+            "erp_billing_integration": True,
+            "erp_auto_fiscal_invoice": True,
         }
     if code == "academia_institutional":
         return {
@@ -119,6 +127,8 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "plan_tier": "special",
             "emoji": "🏛️",
             "popular": False,
+            "erp_billing_integration": True,
+            "erp_auto_fiscal_invoice": True,
         }
     if code == "government":
         return {
@@ -137,5 +147,7 @@ def commercial_feature_overrides(code: str) -> dict[str, Any]:
             "plan_tier": "special",
             "emoji": "🏛️",
             "popular": False,
+            "erp_billing_integration": True,
+            "erp_auto_fiscal_invoice": True,
         }
     raise KeyError(f"Plano desconhecido: {code}")

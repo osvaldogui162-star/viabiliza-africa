@@ -18,6 +18,7 @@ from app.presentation.api.v1.notification_routes import notifications_bp
 from app.presentation.api.v1.financier_routes import financier_bp
 from app.presentation.api.v1.terminal_routes import terminal_bp
 from app.presentation.api.v1.office_routes import office_bp
+from app.presentation.api.v1.erp_billing_routes import erp_billing_bp
 from app.presentation.middleware.auth_middleware import register_auth_middleware
 
 
@@ -56,6 +57,7 @@ def create_app(config: Config | None = None) -> Flask:
     financier_bp.container = container  # type: ignore[attr-defined]
     terminal_bp.container = container  # type: ignore[attr-defined]
     office_bp.container = container  # type: ignore[attr-defined]
+    erp_billing_bp.container = container  # type: ignore[attr-defined]
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(projects_bp)
@@ -70,6 +72,7 @@ def create_app(config: Config | None = None) -> Flask:
     app.register_blueprint(financier_bp)
     app.register_blueprint(terminal_bp)
     app.register_blueprint(office_bp)
+    app.register_blueprint(erp_billing_bp)
 
     register_error_handlers(app)
     register_auth_middleware(app, container.token_service, container.user_repository)

@@ -48,4 +48,6 @@ def build_plan_capabilities(plan: SubscriptionPlan) -> dict:
         "digital_twin_enabled": bool(features.get("digital_twin")),
         "sroi_enabled": bool(features.get("sroi")),
         "priority_support": bool(features.get("priority_support")),
+        "erp_billing_integration": bool(features.get("erp_billing_integration")),
+        "erp_auto_fiscal_invoice": bool(features.get("erp_auto_fiscal_invoice")),
     }

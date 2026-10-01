@@ -15,6 +15,7 @@ import { toast } from "sonner";
 
 import { useAuth } from "@/components/providers/auth-provider";
 
+import { ErpBillingPanel } from "@/features/subscription/components/erp-billing-panel";
 import { PricingShell } from "@/features/subscription/components/pricing-shell";
 
 import { subscriptionApi } from "@/lib/api/subscription-api";
@@ -190,6 +191,12 @@ function buildCapabilityRows(cap: PlanCapabilities) {
     { label: "Digital Twin", enabled: cap.digital_twin_enabled },
 
     { label: "SROI / impacto social", enabled: cap.sroi_enabled },
+
+    {
+      label: "ERP de facturação (API)",
+      enabled: Boolean(cap.erp_billing_integration),
+      detail: cap.erp_auto_fiscal_invoice ? "Factura auto (Business+)" : "Manual / export AGT",
+    },
 
     {
 
@@ -468,6 +475,10 @@ export function AccountSubscriptionPage() {
         </div>
 
       ) : null}
+
+      <div className="mt-8">
+        <ErpBillingPanel capabilities={capabilities ?? null} />
+      </div>
 
     </PricingShell>
 
